@@ -49,7 +49,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
         },
         iconContainer: {
             marginTop: 80,
-            marginBottom: 30,
+            marginBottom: 32,
             alignSelf: 'center',
         },
     });

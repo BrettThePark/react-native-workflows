@@ -40,7 +40,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
             flex: 1,
         },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         spaceBetween: {
             flex: 1,
@@ -53,13 +53,8 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
  */
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
-        inputMargin: {
-            marginTop: 40,
-        },
         wideButton: {
-            height: 60,
-            paddingVertical: 10,
-            justifyContent: 'space-between',
+            margin: 16,
         },
     });
 
@@ -145,21 +140,18 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
                         <TextInput
                             label={t('LABELS.EMAIL')}
                             value={emailInput}
-                            style={styles.inputMargin}
                             keyboardType={'email-address'}
                             autoCapitalize={'none'}
                             onChangeText={(text: string): void => setEmailInput(text)}
                         />
                     </View>
                 </View>
-                <View style={[styles.wideButton, containerStyles.containerMargins]}>
-                    <View style={{ flex: 1 }}>
-                        <ToggleButton
-                            text={t('FORMS.RESET_PASSWORD')}
-                            disabled={!isValidPassword}
-                            onPress={onResetPasswordTap}
-                        />
-                    </View>
+                <View style={[styles.wideButton]}>
+                    <ToggleButton
+                        text={t('FORMS.RESET_PASSWORD')}
+                        disabled={!isValidPassword}
+                        onPress={onResetPasswordTap}
+                    />
                 </View>
             </KeyboardAwareScrollView>
         </SafeAreaView>

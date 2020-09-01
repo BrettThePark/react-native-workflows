@@ -38,11 +38,11 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
             flex: 1,
         },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         iconContainer: {
-            marginTop: 60,
-            marginBottom: 20,
+            marginTop: 80,
+            marginBottom: 32,
             alignSelf: 'center',
         },
     });
@@ -53,8 +53,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
         wideButton: {
-            height: 60,
-            paddingVertical: 10,
+            margin: 16,
         },
     });
 
@@ -84,7 +83,7 @@ export const ResetPasswordSent: React.FC<ResetPasswordSentProps> = (props) => {
 
     return (
         <SafeAreaView style={containerStyles.safeContainer}>
-            <View>
+            <View style={{flex: 1}}>
                 <MatIcon
                     name={'mail-outline'}
                     style={containerStyles.iconContainer}
@@ -101,10 +100,8 @@ export const ResetPasswordSent: React.FC<ResetPasswordSentProps> = (props) => {
                 />
             </View>
 
-            <View style={[styles.wideButton, containerStyles.containerMargins]}>
-                <View style={{ flex: 1 }}>
-                    <ToggleButton text={t('ACTIONS.DONE')} onPress={(): void => navigation.navigate('Login')} />
-                </View>
+            <View style={[styles.wideButton]}>
+                <ToggleButton text={t('ACTIONS.DONE')} onPress={(): void => navigation.navigate('Login')} />
             </View>
         </SafeAreaView>
     );
