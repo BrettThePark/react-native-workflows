@@ -10,7 +10,7 @@ import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { TextInput } from '../components/TextInput';
 import { Instruction } from '../components/Instruction';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Theme, useTheme } from 'react-native-paper';
+import { Theme, useTheme, Button } from 'react-native-paper';
 
 // Shared Auth Logic
 import {
@@ -25,30 +25,8 @@ import {
  */
 const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
-        safeContainer: {
-            height: '100%',
-            backgroundColor: theme.colors.surface,
-        },
-        mainContainer: {
-            flex: 1,
-        },
         containerMargins: {
-            marginHorizontal: 20,
-        },
-        bottomButtonContainer: {
-            position: 'absolute',
-            bottom: 20,
-            width: '100%',
-        },
-    });
-
-/**
- * @ignore
- */
-const makeStyles = (): Record<string, any> =>
-    StyleSheet.create({
-        inputMargin: {
-            marginTop: 40,
+            marginHorizontal: 16,
         },
     });
 
@@ -86,7 +64,6 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
     const { t } = useLanguageLocale();
 
     const containerStyles = makeContainerStyles(theme);
-    const styles = makeStyles();
     const onChangeText = (text: string): void => {
         setEmailInput(text);
         const validEmailOrEmpty = isValidEmail(text) ? text : '';
@@ -96,23 +73,45 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
     const showEmailError = emailInput.length !== 0 && !isValidEmail(emailInput);
 
     return (
-        <SafeAreaView style={containerStyles.safeContainer}>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
-                <Instruction style={containerStyles.containerMargins} text={t('SELF_REGISTRATION.INSTRUCTIONS')} />
+        <View style={{ height: '100%', backgroundColor: 'gray' }}>
+            <Instruction
+                style={{ marginHorizontal: 16 }}
+                text={t('SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}
+            />
 
-                <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
-                    <TextInput
-                        label={t('LABELS.EMAIL')}
-                        value={emailInput}
-                        style={styles.inputMargin}
-                        keyboardType={'email-address'}
-                        autoCapitalize={'none'}
-                        error={showEmailError}
-                        errorText={t('MESSAGES.EMAIL_ENTRY_ERROR')}
-                        onChangeText={onChangeText}
-                    />
-                </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            <View style={[{ marginHorizontal: 16, flex: 1, marginBottom: 32 }]}>
+                {/* <TextInput
+                    label={t('SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
+                    value={'verifyCode'}
+                    keyboardType={'default'}
+                    autoCapitalize={'none'}
+                    // onChangeText={setVerifyCode}
+                    style={{ marginBottom: 32 }}
+                /> */}
+                <TextInput
+                    label={t('LABELS.EMAIL')}
+                    value={emailInput}
+                    keyboardType={'email-address'}
+                    autoCapitalize={'none'}
+                    error={showEmailError}
+                    errorText={t('MESSAGES.EMAIL_ENTRY_ERROR')}
+                    onChangeText={onChangeText}
+                />
+            </View>
+        </View>
+        // <View style={{height: '100%'}}>
+        //     <Instruction style={[containerStyles.containerMargins]} text={t('SELF_REGISTRATION.INSTRUCTIONS')} />
+        //     <View style={[containerStyles.containerMargins, { flex: 1, marginBottom: 32 }]}>
+        // <TextInput
+        //     label={t('LABELS.EMAIL')}
+        //     value={emailInput}
+        //     keyboardType={'email-address'}
+        //     autoCapitalize={'none'}
+        //     error={showEmailError}
+        //     errorText={t('MESSAGES.EMAIL_ENTRY_ERROR')}
+        //     onChangeText={onChangeText}
+        // />
+        //     </View>
+        // </View>
     );
 };

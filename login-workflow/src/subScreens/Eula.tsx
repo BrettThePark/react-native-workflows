@@ -20,22 +20,15 @@ import { Theme, useTheme } from 'react-native-paper';
  */
 const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
-        safeContainer: {
-            height: '100%',
-            backgroundColor: theme.colors.surface,
-        },
-        mainContainer: {
-            flex: 1,
-            paddingTop: 20,
-        },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
+            paddingTop: 16,
         },
         checkboxContainer: {
-            height: 70,
+            margin: 16,
+            marginLeft: 8,
             justifyContent: 'center',
             alignSelf: 'flex-start',
-            marginLeft: 10,
         },
     });
 
@@ -86,34 +79,36 @@ export const Eula: React.FC<EulaProps> = (props) => {
     const eulaContentInternals = !htmlEula
         ? props.eulaContent ?? props.eulaError ?? t('REGISTRATION.EULA.LOADING')
         : props.eulaContent ??
-          '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
-              '<style>body { font-size: 120%; word-wrap: break-word; overflow-wrap: break-word; }</style>' +
-              `<body>${props.eulaError ?? t('REGISTRATION.EULA.LOADING')}</body>` +
-              '</html>';
+        '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
+        '<style>body { font-size: 120%; word-wrap: break-word; overflow-wrap: break-word; }</style>' +
+        `<body>${props.eulaError ?? t('REGISTRATION.EULA.LOADING')}</body>` +
+        '</html>';
 
     return (
-        <SafeAreaView style={containerStyles.safeContainer}>
-            <View style={[containerStyles.mainContainer, containerStyles.containerMargins]}>
-                {htmlEula ? (
-                    <WebView
-                        originWhitelist={['*']}
-                        source={{ html: eulaContentInternals }}
-                        style={{ flex: 1, height: 50 /* WebView needs a fixed height set or it won't render */ }}
+        <View style={[{ height: '100%' }]}>
+            <View style={{ flex: 1 }}>
+                <View style={[containerStyles.containerMargins, { flex: 1 }]}>
+                    {htmlEula ? (
+                        <WebView
+                            originWhitelist={['*']}
+                            source={{ html: eulaContentInternals }}
+                            style={{ flex: 1, height: 50 /* WebView needs a fixed height set or it won't render */ }}
+                        />
+                    ) : (
+                            <ScrollView keyboardShouldPersistTaps={'always'}>
+                                <Body1>{eulaContentInternals}</Body1>
+                            </ScrollView>
+                        )}
+                </View>
+                <View style={[containerStyles.checkboxContainer]}>
+                    <Checkbox
+                        label={t('REGISTRATION.EULA.AGREE_TERMS')}
+                        disabled={disableCheckBox}
+                        checked={eulaIsChecked}
+                        onPress={checkedBox}
                     />
-                ) : (
-                    <ScrollView keyboardShouldPersistTaps={'always'}>
-                        <Body1>{eulaContentInternals}</Body1>
-                    </ScrollView>
-                )}
+                </View>
             </View>
-            <View style={[containerStyles.containerMargins, containerStyles.checkboxContainer]}>
-                <Checkbox
-                    label={t('REGISTRATION.EULA.AGREE_TERMS')}
-                    disabled={disableCheckBox}
-                    checked={eulaIsChecked}
-                    onPress={checkedBox}
-                />
-            </View>
-        </SafeAreaView>
+        </View>
     );
 };

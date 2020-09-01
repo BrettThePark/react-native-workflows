@@ -56,7 +56,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
     const styles = makeStyles();
 
     return (
-        <View style={[styles.padding, hasBottomBorder ? styles.bottomBorder : null]}>
+        <View style={[{flex: 0}, styles.padding, hasBottomBorder ? styles.bottomBorder : null]}>
             <Body1 style={[styles.mainText, style]}>
                 <FormattedText parseableText={text} />
             </Body1>

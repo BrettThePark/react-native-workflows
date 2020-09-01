@@ -22,18 +22,13 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
-            backgroundColor: theme.colors.surface,
         },
         mainContainer: {
             flex: 1,
+            marginBottom: 32,
         },
         containerMargins: {
-            marginHorizontal: 20,
-        },
-        bottomButtonContainer: {
-            position: 'absolute',
-            bottom: 20,
-            width: '100%',
+            marginHorizontal: 16,
         },
     });
 
@@ -86,36 +81,33 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
     const styles = makeStyles();
 
     return (
-        <SafeAreaView style={containerStyles.safeContainer}>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
-                <Instruction
-                    style={containerStyles.containerMargins}
-                    text={t('SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}
-                />
+        <View style={containerStyles.safeContainer}>
+            <Instruction
+                style={containerStyles.containerMargins}
+                text={t('SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}
+            />
 
-                <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
-                    <TextInput
-                        label={t('SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
-                        value={verifyCode}
-                        style={styles.inputMargin}
-                        keyboardType={'default'}
-                        autoCapitalize={'none'}
-                        onChangeText={setVerifyCode}
-                    />
-                    <View style={{ flex: 1 }}>
-                        {/* 
+            <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
+                <TextInput
+                    label={t('SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
+                    value={verifyCode}
+                    keyboardType={'default'}
+                    autoCapitalize={'none'}
+                    onChangeText={setVerifyCode}
+                    style={{marginBottom: 32}}
+                />
+                <View style={{ flex: 1 }}>
+                    {/* 
                         // @ts-ignore waiting for 4.0.0 of react-native-paper to fix these typings https://github.com/callstack/react-native-paper/issues/1920 */}
-                        <Button
-                            uppercase={false}
-                            mode={'contained'}
-                            onPress={(): void => onResendVerificationEmail()}
-                            style={styles.inputMargin}
-                        >
-                            {t('SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
-                        </Button>
-                    </View>
+                    <Button
+                        uppercase={false}
+                        mode={'contained'}
+                        onPress={(): void => onResendVerificationEmail()}
+                    >
+                        {t('SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
+                    </Button>
                 </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            </View>
+        </View>
     );
 };

@@ -58,11 +58,8 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
             height: '100%',
             backgroundColor: theme.colors.surface,
         },
-        mainContainer: {
-            flex: 1,
-        },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         fullFlex: {
             flex: 1,
@@ -87,11 +84,7 @@ const makeStyles = (): Record<string, any> =>
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingVertical: 10,
-        },
-        wideButton: {
-            width: '100%',
-            alignSelf: 'flex-end',
+            padding: 16,
         },
     });
 
@@ -446,7 +439,7 @@ export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (prop
     let buttonArea: JSX.Element;
     if (isLastStep) {
         buttonArea = (
-            <View style={[styles.sideBySideButtons, containerStyles.containerMargins]}>
+            <View style={[styles.sideBySideButtons]}>
                 <ToggleButton
                     text={t('ACTIONS.CONTINUE')}
                     style={{ width: '100%', alignSelf: 'flex-end' }}
@@ -456,95 +449,79 @@ export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (prop
         );
     } else {
         buttonArea = (
-            <View style={containerStyles.topBorder}>
-                <View style={[styles.sideBySideButtons, containerStyles.containerMargins]}>
-                    <View style={{ flex: 1 }}>
-                        <ToggleButton
-                            text={t('ACTIONS.BACK')}
-                            style={{ width: 100, alignSelf: 'flex-start' }}
-                            outlined={true}
-                            disabled={!canGoBackProgress()}
-                            onPress={(): void => advancePage(-1)}
-                        />
-                    </View>
-                    <PageIndicator currentPage={currentPage} totalPages={Pages.__LENGTH} />
-                    <View style={{ flex: 1 }}>
-                        <ToggleButton
-                            text={t('ACTIONS.NEXT')}
-                            style={{ width: 100, alignSelf: 'flex-end' }}
-                            disabled={!canProgress()}
-                            onPress={(): void => advancePage(1)}
-                        />
-                    </View>
+            <View style={[styles.sideBySideButtons, containerStyles.topBorder, { backgroundColor: 'rgba(255,255,255,0.3)' }]}>
+                <View style={{ flex: 1 }}>
+                    <ToggleButton
+                        text={t('ACTIONS.BACK')}
+                        style={{ width: 100, alignSelf: 'flex-start' }}
+                        outlined={true}
+                        disabled={!canGoBackProgress()}
+                        onPress={(): void => advancePage(-1)}
+                    />
+                </View>
+                <PageIndicator currentPage={currentPage} totalPages={Pages.__LENGTH} />
+                <View style={{ flex: 1 }}>
+                    <ToggleButton
+                        text={t('ACTIONS.NEXT')}
+                        style={{ width: 100, alignSelf: 'flex-end' }}
+                        disabled={!canProgress()}
+                        onPress={(): void => advancePage(1)}
+                    />
                 </View>
             </View>
         );
     }
 
     return !accountAlreadyExists ? (
-        <View style={{ flex: 1 }}>
-            {spinner}
-            {errorDialog}
+        <KeyboardAwareScrollView contentContainerStyle={{ flex: 1, backgroundColor: theme.colors.surface }} keyboardShouldPersistTaps={'always'}>
             <CloseHeader title={pageTitle()} backAction={(): void => navigation.goBack()} />
-            <SafeAreaView style={[containerStyles.spaceBetween, { backgroundColor: theme.colors.surface }]}>
-                <ViewPager
-                    ref={viewPager}
-                    initialPage={0}
-                    scrollEnabled={false}
-                    transitionStyle="scroll"
-                    style={{ flex: 1 }}
-                >
-                    <CreateAccountScreen onEmailChanged={setEmail} />
-                    <EulaScreen
-                        eulaAccepted={eulaAccepted}
-                        onEulaChanged={setEulaAccepted}
-                        loadEula={loadAndCacheEula}
-                        htmlEula={injectedUIContext.htmlEula ?? false}
-                        eulaError={loadEulaTransitErrorMessage}
-                        eulaContent={eulaContent}
-                    />
-                    <VerifyEmailScreen
-                        initialCode={verificationCode}
-                        onVerifyCodeChanged={setVerificationCode}
-                        onResendVerificationEmail={(): void => {
-                            requestCode();
-                        }}
-                    />
-                    <KeyboardAwareScrollView
-                        contentContainerStyle={[containerStyles.fullFlex]}
-                        keyboardShouldPersistTaps={'always'}
+            <SafeAreaView style={{ flexGrow: 1 }}>
+                {spinner}
+                {errorDialog}
+                <View style={{ flexGrow: 1 }}>
+                    <ViewPager
+                        ref={viewPager}
+                        initialPage={0}
+                        scrollEnabled={false}
+                        transitionStyle="scroll"
+                        style={{ flexGrow: 1 }}
                     >
-                        <CreatePasswordScreen onPasswordChanged={setPassword} />
-                    </KeyboardAwareScrollView>
-                    <AccountDetailsScreen onDetailsChanged={setAccountDetails} />
-                    <RegistrationCompleteScreen
-                        firstName={accountDetails?.firstName ?? ''}
-                        lastName={accountDetails?.lastName ?? ''}
-                        email={registrationState.inviteRegistration.email ?? t('REGISTRATION.UNKNOWN_EMAIL')}
-                        organization={
-                            registrationState.inviteRegistration.organizationName ??
-                            t('REGISTRATION.UNKNOWN_ORGANIZATION')
-                        }
-                    />
-                </ViewPager>
-                {buttonArea}
+                        <CreateAccountScreen onEmailChanged={setEmail} />
+                        <EulaScreen
+                            eulaAccepted={eulaAccepted}
+                            onEulaChanged={setEulaAccepted}
+                            loadEula={loadAndCacheEula}
+                            htmlEula={injectedUIContext.htmlEula ?? false}
+                            eulaError={loadEulaTransitErrorMessage}
+                            eulaContent={eulaContent}
+                        />
+                        <VerifyEmailScreen
+                            initialCode={verificationCode}
+                            onVerifyCodeChanged={setVerificationCode}
+                            onResendVerificationEmail={(): void => {
+                                requestCode();
+                            }}
+                        />
+                    </ViewPager>
+                    {buttonArea}
+                </View>
             </SafeAreaView>
-        </View>
+        </KeyboardAwareScrollView>
     ) : (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <CloseHeader title={t('REGISTRATION.STEPS.COMPLETE')} backAction={(): void => navigation.goBack()} />
-            <SafeAreaView style={[containerStyles.safeContainer, { flex: 1 }]}>
-                <View style={{ flex: 1 }}>
-                    <ExistingAccountComplete />
-                </View>
-                <View style={[styles.sideBySideButtons, containerStyles.containerMargins]}>
-                    <ToggleButton
-                        text={t('ACTIONS.CONTINUE')}
-                        style={{ width: '100%', alignSelf: 'flex-end' }}
-                        onPress={(): void => navigation.navigate('Login')}
-                    />
-                </View>
-            </SafeAreaView>
-        </View>
-    );
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <CloseHeader title={t('REGISTRATION.STEPS.COMPLETE')} backAction={(): void => navigation.goBack()} />
+                <SafeAreaView style={[containerStyles.safeContainer, { flex: 1 }]}>
+                    <View style={{ flex: 1 }}>
+                        <ExistingAccountComplete />
+                    </View>
+                    <View style={[styles.sideBySideButtons, containerStyles.containerMargins]}>
+                        <ToggleButton
+                            text={t('ACTIONS.CONTINUE')}
+                            style={{ width: '100%', alignSelf: 'flex-end' }}
+                            onPress={(): void => navigation.navigate('Login')}
+                        />
+                    </View>
+                </SafeAreaView>
+            </View>
+        );
 };

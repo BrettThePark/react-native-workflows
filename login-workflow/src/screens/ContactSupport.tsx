@@ -37,15 +37,11 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
             flex: 1,
             justifyContent: 'space-between',
         },
-        mainContainer: {
-            flex: 1,
-            paddingTop: 20,
-        },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         containerSpacing: {
-            marginVertical: 20,
+            marginVertical: 16,
         },
         iconContainer: {
             marginTop: 80,
@@ -60,7 +56,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
 const makeStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         textSpacing: {
-            marginVertical: 10,
+            marginVertical: 16,
         },
         headerText: {
             color: Colors.black['800'],
