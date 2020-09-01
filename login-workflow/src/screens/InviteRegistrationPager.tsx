@@ -417,7 +417,7 @@ export const InviteRegistrationPager: React.FC<InviteRegistrationPagerProps> = (
                         eulaError={loadEulaTransitErrorMessage}
                         eulaContent={eulaContent}
                     />
-                    <KeyboardAwareScrollView contentContainerStyle={[containerStyles.fullFlex]}>
+                    <KeyboardAwareScrollView contentContainerStyle={[containerStyles.fullFlex]} keyboardShouldPersistTaps={'always'}>
                         <CreatePasswordScreen onPasswordChanged={setPassword} />
                     </KeyboardAwareScrollView>
                     <AccountDetailsScreen onDetailsChanged={setAccountDetails} />

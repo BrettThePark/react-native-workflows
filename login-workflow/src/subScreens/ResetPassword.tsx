@@ -131,7 +131,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
         <SafeAreaView style={containerStyles.safeContainer}>
             {spinner}
             {errorDialog}
-            <KeyboardAwareScrollView contentContainerStyle={containerStyles.spaceBetween}>
+            <KeyboardAwareScrollView contentContainerStyle={containerStyles.spaceBetween} keyboardShouldPersistTaps={'always'}>
                 <View style={{ flex: 1 }}>
                     <Instruction
                         text={t('FORGOT_PASSWORD.INSTRUCTIONS', { replace: { phone: contactPhone } })}

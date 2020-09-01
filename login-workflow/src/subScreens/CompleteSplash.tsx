@@ -101,7 +101,7 @@ export const CompleteSplashScreen: React.FC<CompleteSplashScreenProps> = (props)
     return (
         <View style={containerStyles.backgroundAndContentWrapper}>
             <Image style={styles.backgroundImage} source={require('../assets/images/blue_waves.png')} />
-            <ScrollView style={[containerStyles.safeContainer]}>
+            <ScrollView style={[containerStyles.safeContainer]} keyboardShouldPersistTaps={'always'}>
                 <SafeAreaView style={[containerStyles.safeContainer]}>
                     <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
                         <IconSplash style={{ height: 200 }} icon={props.icon ?? 'person'} />

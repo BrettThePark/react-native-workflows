@@ -21,7 +21,7 @@ const makeStyles = (theme: Theme, fontSize: number): Record<string, any> =>
         container: {
             paddingVertical: 10,
             paddingHorizontal: 10,
-            borderRadius: 5,
+            borderRadius: 4,
             borderWidth: 1,
             borderColor: 'transparent',
         },

@@ -20,14 +20,15 @@ import * as Colors from '@pxblue/colors';
 const makeStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         textInput: {
-            height: 70,
+            height: 72,
             fontSize: 18,
+            paddingHorizontal: 16,
             backgroundColor: Colors.white['200'],
         },
         errorText: {
             position: 'absolute',
-            bottom: -20,
-            paddingLeft: 13,
+            bottom: -22,
+            paddingLeft: 16,
             color: theme.colors.error,
         },
     });

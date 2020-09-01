@@ -97,7 +97,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
 
     return (
         <SafeAreaView style={containerStyles.safeContainer}>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
                 <Instruction style={containerStyles.containerMargins} text={t('SELF_REGISTRATION.INSTRUCTIONS')} />
 
                 <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>

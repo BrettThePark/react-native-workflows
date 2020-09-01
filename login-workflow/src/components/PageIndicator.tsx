@@ -26,8 +26,8 @@ const makeStyles = (theme: Theme): Record<string, any> =>
         circle: {
             height: 8,
             width: 8,
-            borderRadius: 20,
-            marginRight: 8,
+            borderRadius: 16,
+            marginHorizontal: 4,
             overflow: 'hidden',
             backgroundColor: Colors.gray['100'],
         },
@@ -35,7 +35,7 @@ const makeStyles = (theme: Theme): Record<string, any> =>
             position: 'absolute',
             height: 8,
             width: 8,
-            borderRadius: 20,
+            borderRadius: 16,
             backgroundColor: theme.colors.primary,
         },
     });

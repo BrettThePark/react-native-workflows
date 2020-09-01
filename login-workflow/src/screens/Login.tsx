@@ -6,7 +6,7 @@
 import React from 'react';
 
 // Components
-import { Platform, View, StyleSheet, SafeAreaView, StatusBar, TextInput as ReactTextInput } from 'react-native';
+import { Platform, Image, View, StyleSheet, StatusBar, TextInput as ReactTextInput } from 'react-native';
 import { Button, Theme, useTheme } from 'react-native-paper';
 import { TextInput } from '../components/TextInput';
 import { TextInputSecure } from '../components/TextInputSecure';
@@ -37,6 +37,7 @@ import {
     useInjectedUIContext,
     useSecurityState,
 } from '@pxblue/react-auth-shared';
+import { useSafeArea, SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * @ignore
@@ -44,46 +45,33 @@ import {
 const makeContainerStyles = (): Record<string, any> =>
     StyleSheet.create({
         mainContainer: {
-            marginHorizontal: 20,
+            margin: 16,
+            flexGrow: 1,
+            justifyContent: 'center',
         },
         checkboxAndButton: {
             flexDirection: 'row',
             justifyContent: 'space-between',
             padding: 0,
             margin: 0,
-            marginLeft: -10,
+            marginLeft: -8,
         },
         checkbox: {
             alignContent: 'flex-start',
             alignSelf: 'flex-start',
             margin: 0,
         },
-        spaceBetween: {
-            flexGrow: 1,
-            justifyContent: 'space-between',
-        },
         loginButtonContainer: {
-            flex: 1,
             maxWidth: '50%',
             alignSelf: 'flex-end',
             height: '100%',
             flexDirection: 'row',
         },
-        topArea: {
-            height: '20%',
-            minHeight: 130,
-            paddingTop: 40,
-        },
-        inputAreas: {
-            flex: 3,
-            justifyContent: 'space-evenly',
-            minHeight: 200, // Space for error messages when visible (offsetting marginTops)
-        },
         loginControls: {
-            marginTop: 15,
+            marginTop: 46, // include space for error message
         },
         bottomButtons: {
-            flex: 2,
+            marginTop: 24,
             justifyContent: 'space-around',
         },
     });
@@ -123,6 +111,7 @@ type LoginProps = {
 
 export const Login: React.FC<LoginProps> = (props) => {
     const securityState = useSecurityState();
+    const insets = useSafeArea();
     const [rememberPassword, setRememberPassword] = React.useState(securityState.rememberMeDetails.rememberMe ?? false);
     const [emailInput, setEmailInput] = React.useState(securityState.rememberMeDetails.email ?? '');
     const [passwordInput, setPasswordInput] = React.useState('');
@@ -210,7 +199,8 @@ export const Login: React.FC<LoginProps> = (props) => {
             // @ts-ignore waiting for 4.0.0 of react-native-paper to fix these typings https://github.com/callstack/react-native-paper/issues/1920
             <Button
                 mode={'contained'}
-                style={{ position: 'absolute', top: 50, right: 20 }}
+                // style={{ position: 'absolute', top: 50, right: 20 }}
+                style={{ position: 'absolute', top: 0, right: 0, zIndex: 100 }}
                 onPress={(): void => setDebugMode(!debugMode)}
             >
                 {'DEBUG'}
@@ -221,7 +211,7 @@ export const Login: React.FC<LoginProps> = (props) => {
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <H6 style={{ textAlign: 'center', lineHeight: 48, backgroundColor: Colors.yellow[500] }}>{'DEBUG MODE'}</H6>
+            <H6 style={{ textAlign: 'center', lineHeight: 48, backgroundColor: Colors.yellow[500], marginTop: 32 }}>{'DEBUG MODE'}</H6>
         );
     }
 
@@ -274,8 +264,8 @@ export const Login: React.FC<LoginProps> = (props) => {
         Platform.OS === 'ios' ? (
             <StatusBar backgroundColor={theme.colors.primary} barStyle="dark-content" />
         ) : (
-            <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" />
-        );
+                <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" />
+            );
 
     return (
         <>
@@ -284,13 +274,14 @@ export const Login: React.FC<LoginProps> = (props) => {
             {errorDialog}
             <ScrollViewWithBackground
                 bounces={false}
-                contentContainerStyle={[containerStyles.spaceBetween, { backgroundColor: theme.colors.surface }]}
+                contentContainerStyle={[{ flexGrow: 1, backgroundColor: theme.colors.surface }]}
             >
-                <LoginHeaderSplash style={containerStyles.topArea} mainImage={authProps.projectImage} />
-                {debugButton}
-                {debugMessage}
-                <SafeAreaView style={[containerStyles.mainContainer, containerStyles.spaceBetween]}>
-                    <View style={containerStyles.inputAreas}>
+                <View style={[containerStyles.mainContainer, {marginTop: insets.top + 16}]}>
+                    <LoginHeaderSplash mainImage={authProps.projectImage} />
+                    {debugButton}
+                    {debugMessage}
+
+                    <View style={{marginTop: 32}}>
                         <TextInput
                             testID={'email-text-field'}
                             label={t('LABELS.EMAIL')}
@@ -313,7 +304,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                             autoCapitalize={'none'}
                             onChangeText={(text: string): void => setPasswordInput(text)}
                             returnKeyType={'done'}
-                            style={{ marginTop: 15 }}
+                            style={{ marginTop: 46 }}
                             error={hasTransitError}
                             errorText={t('LOGIN.INCORRECT_CREDENTIALS')}
                         />
@@ -360,7 +351,7 @@ export const Login: React.FC<LoginProps> = (props) => {
 
                         <CybersecurityBadge containerStyle={styles.securityBadge} />
                     </View>
-                </SafeAreaView>
+                </View>
             </ScrollViewWithBackground>
         </>
     );

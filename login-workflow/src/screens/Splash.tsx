@@ -23,39 +23,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
         safeContainer: {
             height: '100%',
             backgroundColor: theme.colors.surface,
-        },
-        mainContainer: {
-            flex: 1,
-            marginHorizontal: 30,
-            height: '82%',
-        },
-        topArea: {
-            height: '18%',
-        },
-        bottomHalf: {
-            height: '40%',
-            paddingTop: 45,
-            flex: 1,
-            justifyContent: 'space-between',
-        },
-        inputAreas: {
-            marginTop: 40,
-            paddingTop: 0,
-            paddingBottom: 40,
-        },
-        checkboxAndButton: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignContent: 'flex-start',
-            alignItems: 'center',
-            padding: 0,
-            margin: 0,
-            marginLeft: -10,
-        },
-        checkbox: {
-            alignContent: 'flex-start',
-            alignSelf: 'flex-start',
-            margin: 0,
+            justifyContent: 'center',
         },
     });
 
@@ -67,21 +35,12 @@ const makeStyles = (): Record<string, any> =>
         logoCyber: {
             height: 85,
             width: '100%',
-            marginVertical: 20,
+            marginTop: 32,
         },
         svg: {
             width: '100%',
             height: '100%',
             resizeMode: 'contain',
-        },
-        signUpText: {
-            fontSize: 20,
-            alignSelf: 'center',
-            paddingTop: 20,
-            color: Colors.gray['300'],
-        },
-        clearButton: {
-            fontSize: 16,
         },
     });
 
@@ -109,9 +68,9 @@ export const Splash: React.FC<SplashProps> = (props) => {
 
     return (
         <SafeAreaView style={containerStyles.safeContainer}>
-            <LoginHeaderSplash style={containerStyles.topArea} mainImage={props.mainImage} />
+            <LoginHeaderSplash style={{ alignItems: 'center' }} mainImage={props.mainImage} />
 
-            <View style={containerStyles.mainContainer}>
+            <View>
                 <View style={styles.logoCyber}>
                     <Image resizeMethod="resize" source={CyberLogo} style={styles.svg} />
                 </View>

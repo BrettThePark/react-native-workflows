@@ -510,7 +510,7 @@ export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (prop
                             requestCode();
                         }}
                     />
-                    <KeyboardAwareScrollView contentContainerStyle={[containerStyles.fullFlex]}>
+                    <KeyboardAwareScrollView contentContainerStyle={[containerStyles.fullFlex]} keyboardShouldPersistTaps={'always'}>
                         <CreatePasswordScreen onPasswordChanged={setPassword} />
                     </KeyboardAwareScrollView>
                     <AccountDetailsScreen onDetailsChanged={setAccountDetails} />

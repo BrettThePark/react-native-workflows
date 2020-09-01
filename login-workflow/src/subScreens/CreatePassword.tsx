@@ -124,7 +124,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
 
     return (
         <SafeAreaView style={[containerStyles.safeContainer, { flexGrow: 1 }]}>
-            <ScrollView style={{ flexGrow: 1 }}>
+            <ScrollView style={{ flexGrow: 1 }} keyboardShouldPersistTaps={'always'}>
                 <Instruction text={t('CHANGE_PASSWORD.PASSWORD_INFO')} style={[containerStyles.containerMargins]} />
 
                 <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>

@@ -19,9 +19,12 @@ import * as Colors from '@pxblue/colors';
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
         padding: {
-            paddingVertical: 30,
+            paddingTop: 32,
+            paddingBottom: 32,
         },
         bottomBorder: {
+            paddingBottom: 40,
+            marginBottom: 32,
             borderBottomWidth: 1,
             borderBottomColor: Colors.white['900'],
         },

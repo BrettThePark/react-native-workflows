@@ -108,7 +108,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
 
     return (
         <SafeAreaView style={containerStyles.safeContainer}>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
                 <Instruction
                     text={t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS')}
                     style={containerStyles.containerMargins}

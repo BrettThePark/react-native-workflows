@@ -17,15 +17,15 @@ import { TextInput, TextInputRenderProps } from './TextInput';
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
         togglePadding: {
-            paddingRight: 50,
+            paddingRight: 48,
         },
         visibilityToggleTouchable: {
             position: 'absolute',
-            right: 10,
-            bottom: 10,
-            height: 50,
-            width: 50,
-            padding: 5,
+            right: 8,
+            bottom: 12,
+            height: 48,
+            width: 48,
+            padding: 8,
             flex: 1,
             justifyContent: 'center',
         },

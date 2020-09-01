@@ -56,7 +56,7 @@ export const ScrollViewWithBackground: React.FC<ScrollViewWithBackgroundProps> =
     const styles = makeStyles(500, topColor ?? theme.colors.surface, bottomColor ?? theme.colors.surface);
 
     return (
-        <ScrollView {...other}>
+        <ScrollView keyboardShouldPersistTaps={'always'} {...other}>
             <View style={styles.scrollViewTopCover} />
             <View style={styles.scrollViewBottomCover} />
             {children}

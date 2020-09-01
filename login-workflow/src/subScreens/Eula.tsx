@@ -101,7 +101,7 @@ export const Eula: React.FC<EulaProps> = (props) => {
                         style={{ flex: 1, height: 50 /* WebView needs a fixed height set or it won't render */ }}
                     />
                 ) : (
-                    <ScrollView>
+                    <ScrollView keyboardShouldPersistTaps={'always'}>
                         <Body1>{eulaContentInternals}</Body1>
                     </ScrollView>
                 )}

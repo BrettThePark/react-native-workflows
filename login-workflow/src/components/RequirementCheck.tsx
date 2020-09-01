@@ -25,7 +25,7 @@ const makeStyles = (): Record<string, any> =>
             alignItems: 'center',
         },
         text: {
-            paddingLeft: 10,
+            paddingLeft: 8,
         },
     });
 
