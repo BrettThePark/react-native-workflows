@@ -238,7 +238,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = (props) => {
         </SafeAreaView>
     ) : (
         // if the password hasn't been changed yet
-        <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}} >
+        <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={'always'}>
             <SafeAreaView style={{flexGrow: 1}}>
                 {statusBar}
                 {spinner}

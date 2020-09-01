@@ -30,14 +30,11 @@ import {
 const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
-            height: '100%',
+            flexGrow: 1,
             backgroundColor: theme.colors.surface,
         },
-        mainContainer: {
-            flex: 1,
-        },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         spaceBetween: {
             flexGrow: 1,
@@ -55,7 +52,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
         bottomButton: {
-            marginBottom: 10,
+            margin: 16,
         },
     });
 
@@ -97,7 +94,7 @@ export const ResetPasswordConfirm: React.FC<ResetPasswordConfirmProps> = (props)
 
     // Network state (setPassword)
     const setPasswordTransit = authUIState.setPassword.setPasswordTransit;
-    const setPassowordIsInTransit = setPasswordTransit.transitInProgress;
+    const setPasswordIsInTransit = setPasswordTransit.transitInProgress;
     const setPasswordHasTransitError = setPasswordTransit.transitErrorMessage !== null;
     const setPasswordTransitErrorMessage = setPasswordTransit.transitErrorMessage;
 
@@ -106,7 +103,7 @@ export const ResetPasswordConfirm: React.FC<ResetPasswordConfirmProps> = (props)
         routeParams.onResetPasswordPress(password);
     };
 
-    const spinner = setPassowordIsInTransit ? <Spinner /> : <></>;
+    const spinner = setPasswordIsInTransit ? <Spinner /> : <></>;
     const canProgress = (): boolean => password.length > 0;
     const errorDialog = (
         <SimpleDialog
@@ -119,23 +116,21 @@ export const ResetPasswordConfirm: React.FC<ResetPasswordConfirmProps> = (props)
         />
     );
     return (
-        <SafeAreaView style={containerStyles.safeContainer}>
-            {spinner}
-            {errorDialog}
-            <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
-                <CreatePassword onPasswordChanged={setPassword} />
-            </KeyboardAwareScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} contentContainerStyle={{ flexGrow: 1 }}>
 
-            <View style={containerStyles.bottomButton}>
-                <View style={[containerStyles.containerMargins]}>
+            <SafeAreaView style={containerStyles.safeContainer}>
+                {spinner}
+                {errorDialog}
+
+                <CreatePassword onPasswordChanged={setPassword} style={{ flex: 1 }} />
+                <View style={styles.bottomButton}>
                     <ToggleButton
                         text={t('FORMS.RESET_PASSWORD')}
                         disabled={!canProgress()}
-                        style={styles.bottomButton}
                         onPress={onResetPasswordTap}
                     />
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </KeyboardAwareScrollView>
     );
 };

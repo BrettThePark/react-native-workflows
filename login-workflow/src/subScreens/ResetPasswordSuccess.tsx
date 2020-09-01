@@ -6,7 +6,7 @@
 import React from 'react';
 
 // Components
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { CompleteSplashScreen } from './CompleteSplash';
 import { ToggleButton } from '../components/ToggleButton';
 
@@ -21,21 +21,12 @@ import { Theme, useTheme } from 'react-native-paper';
 const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
-            height: '100%',
+            flex: 1,
             backgroundColor: theme.colors.surface,
         },
-        mainContainer: {
-            flex: 1,
-            zIndex: 2,
-        },
-        containerMargins: {
-            marginHorizontal: 20,
-        },
         buttonContainer: {
-            bottom: 48,
             zIndex: 2,
-            width: '90%',
-            marginHorizontal: '5%',
+            margin: 16,
         },
     });
 
@@ -65,13 +56,14 @@ export const ResetPasswordSuccess: React.FC<ResetPasswordSuccessProps> = (props)
 
     return (
         <SafeAreaView style={containerStyles.safeContainer}>
-            <CompleteSplashScreen boldTitle={titleText} bodyText={bodyText} icon={'vpn-key'} />
+            <CompleteSplashScreen style={{flex: 1}} boldTitle={titleText} bodyText={bodyText} icon={'vpn-key'} />
 
-            <ToggleButton
-                text={t('ACTIONS.DONE')}
-                style={containerStyles.buttonContainer}
-                onPress={(): void => navigation.navigate('Login')}
-            />
+            <View style={containerStyles.buttonContainer}>
+                <ToggleButton
+                    text={t('ACTIONS.DONE')}
+                    onPress={(): void => navigation.navigate('Login')}
+                />
+            </View>
         </SafeAreaView>
     );
 };

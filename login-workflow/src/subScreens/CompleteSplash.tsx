@@ -6,7 +6,7 @@
 import React from 'react';
 
 // Components
-import { View, StyleSheet, SafeAreaView, Image, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Image, ScrollView, ViewProps } from 'react-native';
 import { IconSplash } from '../components/IconSplash';
 import { FormattedText } from '../components/FormattedText';
 import { Theme, useTheme } from 'react-native-paper';
@@ -25,8 +25,8 @@ const makeContainerStyles = (): Record<string, any> =>
             backgroundColor: 'transparent',
         },
         backgroundAndContentWrapper: {
-            width: '100%',
-            height: '100%',
+            // width: '100%',
+            // height: '100%',
             zIndex: 2, // For Android to render correctly
         },
         mainContainer: {
@@ -35,7 +35,7 @@ const makeContainerStyles = (): Record<string, any> =>
             alignContent: 'center',
         },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         textContainer: {
             flex: 2,
@@ -58,7 +58,7 @@ const makeStyles = (theme: Theme): Record<string, any> =>
             color: theme.colors.text,
         },
         textSpacing: {
-            marginVertical: 10,
+            marginVertical: 16,
         },
         backgroundImage: {
             position: 'absolute',
@@ -81,7 +81,7 @@ const makeStyles = (theme: Theme): Record<string, any> =>
  * @param icon  (Optional) The optional icon to show on the slash. Default 'blue_waves.png'.
  * @param theme (Optional) react-native-paper theme partial for custom styling.
  */
-type CompleteSplashScreenProps = {
+type CompleteSplashScreenProps = ViewProps & {
     boldTitle: string;
     bodyText: string;
     icon?: string;
@@ -99,7 +99,7 @@ export const CompleteSplashScreen: React.FC<CompleteSplashScreenProps> = (props)
     const styles = makeStyles(theme);
 
     return (
-        <View style={containerStyles.backgroundAndContentWrapper}>
+        <View style={[containerStyles.backgroundAndContentWrapper, props.style]}>
             <Image style={styles.backgroundImage} source={require('../assets/images/blue_waves.png')} />
             <ScrollView style={[containerStyles.safeContainer]} keyboardShouldPersistTaps={'always'}>
                 <SafeAreaView style={[containerStyles.safeContainer]}>

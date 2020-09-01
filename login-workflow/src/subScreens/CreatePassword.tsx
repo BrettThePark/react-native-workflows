@@ -6,7 +6,7 @@
 import React, { useCallback } from 'react';
 
 // Components
-import { View, StyleSheet, SafeAreaView, TextInput } from 'react-native';
+import { View, StyleSheet, SafeAreaView, TextInput, ViewProps } from 'react-native';
 import { PasswordRequirements } from '../components/PasswordRequirements';
 import { TextInputSecure } from '../components/TextInputSecure';
 import { Instruction } from '../components/Instruction';
@@ -29,6 +29,7 @@ import {
     useLanguageLocale,
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
+import { SafeAreaViewProps } from 'react-native-safe-area-context';
 
 /**
  * @ignore
@@ -37,14 +38,14 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             backgroundColor: theme.colors.surface,
-            marginBottom: 20,
             flex: 1,
+            paddingBottom: 32,
         },
         mainContainer: {
             flex: 1,
         },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
     });
 
@@ -54,7 +55,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
 const makeStyles = (): Record<string, any> =>
     StyleSheet.create({
         inputMargin: {
-            marginTop: 40,
+            marginTop: 24,
         },
     });
 
@@ -64,7 +65,7 @@ const makeStyles = (): Record<string, any> =>
  * @param onPasswordChanged  Handle the change of the password input.
  * @param theme (Optional) react-native-paper theme partial for custom styling.
  */
-type CreatePasswordProps = {
+type CreatePasswordProps = ViewProps & {
     onPasswordChanged(password: string): void;
     theme?: Theme;
 };
@@ -123,7 +124,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
     }, [passwordInput, confirmInput, areValidMatchingPasswords]); // ignore props
 
     return (
-        <SafeAreaView style={[containerStyles.safeContainer, { flexGrow: 1 }]}>
+        <SafeAreaView style={[containerStyles.safeContainer, { flexGrow: 1 }, props.style]}>
             <ScrollView style={{ flexGrow: 1 }} keyboardShouldPersistTaps={'always'}>
                 <Instruction text={t('CHANGE_PASSWORD.PASSWORD_INFO')} style={[containerStyles.containerMargins]} />
 
@@ -131,7 +132,6 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
                     <TextInputSecure
                         label={t('FORMS.PASSWORD')}
                         value={passwordInput}
-                        style={styles.inputMargin}
                         autoCapitalize={'none'}
                         returnKeyType={'next'}
                         onChangeText={(text: string): void => setPasswordInput(text)}

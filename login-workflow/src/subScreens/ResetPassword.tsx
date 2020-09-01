@@ -127,32 +127,35 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
             {spinner}
             {errorDialog}
             <KeyboardAwareScrollView
-                contentContainerStyle={containerStyles.spaceBetween}
+                contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps={'always'}
             >
-                <View style={{ flex: 1 }}>
+                <SafeAreaView style={[containerStyles.safeContainer, { flexGrow: 1 }]}>
                     <Instruction
                         text={t('FORGOT_PASSWORD.INSTRUCTIONS', { replace: { phone: contactPhone } })}
                         style={containerStyles.containerMargins}
                     />
+                    <View style={{ flexGrow: 1 }}>
 
-                    <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
-                        <TextInput
-                            label={t('LABELS.EMAIL')}
-                            value={emailInput}
-                            keyboardType={'email-address'}
-                            autoCapitalize={'none'}
-                            onChangeText={(text: string): void => setEmailInput(text)}
+
+                        <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
+                            <TextInput
+                                label={t('LABELS.EMAIL')}
+                                value={emailInput}
+                                keyboardType={'email-address'}
+                                autoCapitalize={'none'}
+                                onChangeText={(text: string): void => setEmailInput(text)}
+                            />
+                        </View>
+                    </View>
+                    <View style={[styles.wideButton]}>
+                        <ToggleButton
+                            text={t('FORMS.RESET_PASSWORD')}
+                            disabled={!isValidPassword}
+                            onPress={onResetPasswordTap}
                         />
                     </View>
-                </View>
-                <View style={[styles.wideButton]}>
-                    <ToggleButton
-                        text={t('FORMS.RESET_PASSWORD')}
-                        disabled={!isValidPassword}
-                        onPress={onResetPasswordTap}
-                    />
-                </View>
+                </SafeAreaView>
             </KeyboardAwareScrollView>
         </SafeAreaView>
     );
