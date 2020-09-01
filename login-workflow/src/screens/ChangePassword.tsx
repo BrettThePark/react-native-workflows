@@ -53,7 +53,7 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
         safeContainer: {
             height: '100%',
             backgroundColor: theme.colors.surface,
-            marginBottom: 20,
+            // marginBottom: 20,
             flex: 1,
             justifyContent: 'space-between',
         },
@@ -61,14 +61,14 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
             flex: 1,
         },
         containerMargins: {
-            marginHorizontal: 20,
+            marginHorizontal: 16,
         },
         containerSpacing: {
-            marginVertical: 20,
+            marginVertical: 16,
         },
         iconContainer: {
             marginTop: 80,
-            marginBottom: 30,
+            marginBottom: 32,
             alignSelf: 'center',
         },
     });
@@ -79,13 +79,15 @@ const makeContainerStyles = (theme: Theme): Record<string, any> =>
 const makeStyles = (theme: Theme): Record<string, any> =>
     StyleSheet.create({
         inputMargin: {
-            marginTop: 40,
+            marginTop: 24,
         },
         sideBySideButtons: {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            paddingVertical: 10,
+            padding: 16,
+            borderTopWidth: 1,
+            borderTopColor: Colors.white['900'],
         },
         headerText: {
             color: Colors.black['800'],
@@ -94,11 +96,11 @@ const makeStyles = (theme: Theme): Record<string, any> =>
             color: theme.colors.text,
         },
         textSpacing: {
-            marginVertical: 10,
+            marginVertical: 16,
         },
         wideButton: {
             height: 60,
-            paddingVertical: 10,
+            paddingVertical: 16,
         },
     });
 
@@ -236,18 +238,17 @@ export const ChangePassword: React.FC<ChangePasswordProps> = (props) => {
         </SafeAreaView>
     ) : (
         // if the password hasn't been changed yet
-        <KeyboardAwareScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
-            <SafeAreaView style={[containerStyles.safeContainer, { flexGrow: 1 }]}>
+        <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}} >
+            <SafeAreaView style={{flexGrow: 1}}>
                 {statusBar}
                 {spinner}
                 {errorDialog}
                 <Instruction text={t('CHANGE_PASSWORD.PASSWORD_INFO')} style={[containerStyles.containerMargins]} />
-                <ScrollView>
-                    <View style={[containerStyles.containerMargins, containerStyles.mainContainer]}>
+                <View style={{flexGrow: 1}}>
+                    <View style={[containerStyles.containerMargins]}>
                         <TextInputSecure
                             label={t('LABELS.CURRENT_PASSWORD')}
                             value={currentPasswordInput}
-                            style={styles.inputMargin}
                             autoCapitalize={'none'}
                             returnKeyType={'next'}
                             onChangeText={(text: string): void => setCurrentPasswordInput(text)}
@@ -271,29 +272,29 @@ export const ChangePassword: React.FC<ChangePasswordProps> = (props) => {
                             blurOnSubmit={false}
                         />
 
-                        <PasswordRequirements style={{ paddingTop: 10 }} passwordText={newPasswordInput} />
+                        <PasswordRequirements style={{ paddingTop: 16 }} passwordText={newPasswordInput} />
 
                         <TextInputSecure
                             ref={confirmInputRef}
                             label={t('CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD')}
                             value={confirmInput}
-                            style={styles.inputMargin}
+                            style={[styles.inputMargin, {marginBottom: 32}]}
                             autoCapitalize={'none'}
                             returnKeyType={'done'}
                             error={confirmInput !== '' && newPasswordInput !== confirmInput}
                             onChangeText={(text: string): void => setConfirmInput(text)}
                         />
                     </View>
-                </ScrollView>
-                <View style={[styles.sideBySideButtons, containerStyles.containerMargins]}>
-                    <View style={{ flex: 1, paddingRight: 5 }}>
+                </View>
+                <View style={[styles.sideBySideButtons]}>
+                    <View style={{ flex: 1, paddingRight: 8 }}>
                         <ToggleButton
                             text={t('CHANGE_PASSWORD.CANCEL')}
                             outlined={true}
                             onPress={(): void => securityHelper.hideChangePassword()}
                         />
                     </View>
-                    <View style={{ flex: 1, paddingLeft: 5 }}>
+                    <View style={{ flex: 1, paddingLeft: 8 }}>
                         <ToggleButton
                             text={t('CHANGE_PASSWORD.UPDATE')}
                             disabled={currentPasswordInput === '' || !areValidMatchingPasswords()}

@@ -211,7 +211,9 @@ export const Login: React.FC<LoginProps> = (props) => {
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <H6 style={{ textAlign: 'center', lineHeight: 48, backgroundColor: Colors.yellow[500], marginTop: 32 }}>{'DEBUG MODE'}</H6>
+            <H6 style={{ textAlign: 'center', lineHeight: 48, backgroundColor: Colors.yellow[500], marginTop: 32 }}>
+                {'DEBUG MODE'}
+            </H6>
         );
     }
 
@@ -264,8 +266,8 @@ export const Login: React.FC<LoginProps> = (props) => {
         Platform.OS === 'ios' ? (
             <StatusBar backgroundColor={theme.colors.primary} barStyle="dark-content" />
         ) : (
-                <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" />
-            );
+            <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" />
+        );
 
     return (
         <>
@@ -276,12 +278,12 @@ export const Login: React.FC<LoginProps> = (props) => {
                 bounces={false}
                 contentContainerStyle={[{ flexGrow: 1, backgroundColor: theme.colors.surface }]}
             >
-                <View style={[containerStyles.mainContainer, {marginTop: insets.top + 16}]}>
+                <View style={[containerStyles.mainContainer, { marginTop: insets.top + 16 }]}>
                     <LoginHeaderSplash mainImage={authProps.projectImage} />
                     {debugButton}
                     {debugMessage}
 
-                    <View style={{marginTop: 32}}>
+                    <View style={{ marginTop: 32 }}>
                         <TextInput
                             testID={'email-text-field'}
                             label={t('LABELS.EMAIL')}
