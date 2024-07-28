@@ -8,11 +8,11 @@ import React from 'react';
 // Components
 import { View, StyleSheet, SafeAreaView, Image, ScrollView } from 'react-native';
 import { IconSplash } from '../components/IconSplash';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 import { FormattedText } from '../components/FormattedText';
 
 // Styles
-import { Body1, H6 } from '@brightlayer-ui/react-native-components';
+import { Body1, H6 } from '../components/BrightlayerTypographyWrappers';
 
 /**
  * @ignore
@@ -51,7 +51,7 @@ const makeContainerStyles = (): Record<string, any> =>
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         headerText: {},
         bodyText: {},
@@ -88,7 +88,7 @@ type CompleteSplashScreenProps = {
     boldTitle: string;
     bodyText: string;
     icon?: string;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -97,7 +97,7 @@ type CompleteSplashScreenProps = {
  * @category Component
  */
 export const CompleteSplashScreen: React.FC<CompleteSplashScreenProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const containerStyles = makeContainerStyles();
     const styles = makeStyles(theme);
 

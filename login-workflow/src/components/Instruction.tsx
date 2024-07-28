@@ -6,8 +6,8 @@ import React from 'react';
 
 // Components
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { Body1 } from '@brightlayer-ui/react-native-components';
-import { ThemedDivider as Divider } from '@brightlayer-ui/react-native-components/themed';
+import { Body1 } from './BrightlayerTypographyWrappers';
+import { Divider, MD2Theme } from 'react-native-paper';
 import { FormattedText } from './FormattedText';
 
 // Styles
@@ -17,7 +17,7 @@ import Color from 'color';
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         padding: {
             paddingTop: 16,
@@ -52,7 +52,7 @@ type InstructionProps = {
  */
 export const Instruction: React.FC<InstructionProps> = (props) => {
     const { text, style, hasBottomBorder = true } = props;
-    const theme = useTheme();
+    const theme = useTheme<MD2Theme>();
     const styles = makeStyles(theme);
 
     return (

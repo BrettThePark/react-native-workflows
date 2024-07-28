@@ -9,7 +9,7 @@ import React from 'react';
 import { CompleteSplashScreen } from './CompleteSplash';
 
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useLanguageLocale } from '../react-auth-shared';
 
 /**
  * Type to represent the content of the registration complete component.

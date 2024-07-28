@@ -7,7 +7,7 @@ import React from 'react';
 
 // Hooks
 import { useRoute } from '@react-navigation/native';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Components
@@ -26,12 +26,12 @@ import {
     // Hooks
     useLanguageLocale,
     useAccountUIState,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme, insets: any): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme, insets: any): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             flexGrow: 1,
@@ -87,7 +87,7 @@ type ResetPasswordParams = {
  * @param theme (Optional) react-native-paper theme partial for custom styling.
  */
 type ResetPasswordProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -96,7 +96,7 @@ type ResetPasswordProps = {
  * @category Component
  */
 export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [emailInput, setEmailInput] = React.useState('');
     const [hasEmailFormatError, setHasEmailFormatError] = React.useState(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);

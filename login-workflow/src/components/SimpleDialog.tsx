@@ -4,13 +4,12 @@
  */
 
 import React from 'react';
-
+ 
 // Components
-import { Paragraph, Dialog, Portal } from 'react-native-paper';
-import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
+import { Paragraph, Dialog, Portal, Button } from 'react-native-paper';
 
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useLanguageLocale } from '../react-auth-shared';
 
 /**
  * @param visible  If the dialog box should be shown.
@@ -35,8 +34,7 @@ export const SimpleDialog: React.FC<SimpleDialogProps> = (props) => {
     const { t } = useLanguageLocale();
     return (
         <Portal>
-            <Dialog visible={visible} dismissable={false} style={{ minWidth: 250, maxWidth: 600, alignSelf: 'center' }}>
-                {/* @ts-ignore */}
+            <Dialog visible={visible} dismissable={false}>
                 <Dialog.Title>{title}</Dialog.Title>
                 <Dialog.Content>
                     <Paragraph>{bodyText ?? t('blui:MESSAGES.REQUEST_ERROR')}</Paragraph>

@@ -7,28 +7,30 @@ import React from 'react';
 
 // Components
 import { Linking, View, StyleSheet, SafeAreaView, BackHandler } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { MD2Theme, Text, useTheme } from 'react-native-paper';
 import { CloseHeader } from '../components/CloseHeader';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 
 // Styles
-import { Body1, H6 } from '@brightlayer-ui/react-native-components';
+import { Body1, H6 } from '../components/BrightlayerTypographyWrappers';
 
 // Hooks
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Shared Auth Logic
 import {
-    // Types
-    ContactParams,
     // Hooks
     useLanguageLocale,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    ContactParams
+} from '../react-auth-shared';
+import { StackParamList } from './PreAuthContainer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -57,7 +59,7 @@ const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any>
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         textSpacing: {
             marginVertical: 8,
@@ -72,7 +74,7 @@ const makeStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type ContactSupportProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -82,8 +84,8 @@ type ContactSupportProps = {
  */
 export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
     const { t } = useLanguageLocale();
-    const theme = useTheme(props.theme);
-    const navigation = useNavigation();
+    const theme = useTheme<MD2Theme>(props.theme);
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const route = useRoute();
 
     const styles = makeStyles(theme);
@@ -142,6 +144,7 @@ export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
                             {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
                             <Text
                                 style={{ color: theme.colors.accent }}
+                                theme={{ colors: { onSurface: theme.colors.accent }}}
                                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                 onPress={(): Promise<void> => Linking.openURL(`tel:${contactPhoneLink}`)}
                             >

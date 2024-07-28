@@ -9,18 +9,18 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import { TextInput } from '../components/TextInput';
 import { Instruction } from '../components/Instruction';
-import { useTheme } from 'react-native-paper';
-import { Body1 } from '@brightlayer-ui/react-native-components';
+import { MD2Theme, useTheme } from 'react-native-paper';
+import { Body1 } from '../components/BrightlayerTypographyWrappers';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useLanguageLocale } from '../react-auth-shared';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -75,7 +75,7 @@ type VerifyEmailProps = {
     onVerifyCodeChanged(code: string): void;
     onResendVerificationEmail(): void;
     onSubmit?: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -86,7 +86,7 @@ type VerifyEmailProps = {
  */
 export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
     const { initialCode, onVerifyCodeChanged, onResendVerificationEmail, theme: customTheme } = props;
-    const theme = useTheme(customTheme);
+    const theme = useTheme<MD2Theme>(customTheme);
     const { t } = useLanguageLocale();
     const [verifyCode, setVerifyCode] = React.useState(initialCode ?? '');
 
@@ -130,7 +130,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
                                 onResendVerificationEmail();
                             }}
                         >
-                            <Body1 color="primary">&nbsp;{t('blui:ACTIONS.RESEND')}</Body1>
+                            <Body1 theme={{ colors: { onSurface: theme.colors.primary }}}>&nbsp;{t('blui:ACTIONS.RESEND')}</Body1>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -14,14 +14,15 @@ import { Instruction } from '../components/Instruction';
 import { Spinner } from '../components/Spinner';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ToggleButton } from '../components/ToggleButton';
+import  * as Colors from '@brightlayer-ui/colors';
 
 // Styles
-import { Body1, H6 } from '@brightlayer-ui/react-native-components';
+import { Body1, H6 } from '../components/BrightlayerTypographyWrappers';
 
 // Hooks
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleDialog } from '../components/SimpleDialog';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Shared Auth Logic
 import {
@@ -41,13 +42,13 @@ import {
     // Hooks
     useLanguageLocale,
     useInjectedUIContext,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 import { CloseHeader } from '../components/CloseHeader';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -87,7 +88,7 @@ const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any>
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         inputMargin: {
             marginTop: 24,
@@ -121,7 +122,7 @@ type ChangePasswordProps = {
     onChangePassword: (oldPassword: string, newPassword: string) => Promise<void>;
     onCancel: () => void;
     onChangeComplete: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -131,7 +132,7 @@ type ChangePasswordProps = {
  * @category Component
  */
 export const ChangePassword: React.FC<ChangePasswordProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [currentPasswordInput, setCurrentPasswordInput] = React.useState('');
     const [newPasswordInput, setNewPasswordInput] = React.useState('');
     const [confirmInput, setConfirmInput] = React.useState('');
@@ -210,7 +211,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = (props) => {
     let statusBar: JSX.Element = <></>;
     statusBar = (
         <StatusBar
-            backgroundColor={theme.colors?.primaryPalette?.main || theme.colors.primary}
+            backgroundColor={Colors.blue[500] || theme.colors.primary}
             barStyle={'light-content'}
         />
     );

@@ -8,7 +8,7 @@ import React from 'react';
 // Components
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Instruction } from '../components/Instruction';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 import { ToggleButton } from '../components/ToggleButton';
 
@@ -17,16 +17,18 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Shared Auth Logic
 import {
-    // Types
-    ResetPasswordParams,
     // Hooks
     useLanguageLocale,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    ResetPasswordParams
+} from '../react-auth-shared';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from 'src/screens/PreAuthContainer';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -62,7 +64,7 @@ const makeStyles = (): Record<string, any> =>
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type ResetPasswordSentProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -71,9 +73,9 @@ type ResetPasswordSentProps = {
  * @category Component
  */
 export const ResetPasswordSent: React.FC<ResetPasswordSentProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const { t } = useLanguageLocale();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const route = useRoute();
 
     const containerStyles = makeContainerStyles(theme);

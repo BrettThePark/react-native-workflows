@@ -7,18 +7,18 @@ import React, { useCallback, useState } from 'react';
 
 // Components
 import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
-import { Body1 } from '@brightlayer-ui/react-native-components';
+import { Body1 } from '../components/BrightlayerTypographyWrappers';
 import { Checkbox } from '../components/Checkbox';
 import { WebView } from 'react-native-webview';
 
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useTheme } from 'react-native-paper';
+import { useLanguageLocale } from '../react-auth-shared';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -71,7 +71,7 @@ type EulaProps = {
     eulaError: string | null;
     loadEula: () => void;
     htmlEula?: boolean;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -80,7 +80,7 @@ type EulaProps = {
  * @category Component
  */
 export const Eula: React.FC<EulaProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const { t } = useLanguageLocale();
     const containerStyles = makeContainerStyles(theme);
     const [contentLoaded, setContentLoaded] = useState(false);

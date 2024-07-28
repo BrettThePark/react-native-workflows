@@ -9,7 +9,7 @@ import * as Colors from '@brightlayer-ui/colors';
 
 // Components
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 
 /**
@@ -26,7 +26,7 @@ const makeContainerStyles = (): Record<string, any> =>
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme, iconSize: number): Record<string, any> =>
+const makeStyles = (theme: MD2Theme, iconSize: number): Record<string, any> =>
     StyleSheet.create({
         circleIconBackground: {
             marginTop: 16,
@@ -34,7 +34,7 @@ const makeStyles = (theme: ReactNativePaper.Theme, iconSize: number): Record<str
             height: iconSize,
             borderRadius: iconSize / 2,
             backgroundColor:
-                (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) || theme.colors.primary,
+                (theme.dark ? Colors.gray[500] : theme.colors.primary) || theme.colors.primary,
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -51,7 +51,7 @@ type IconSplashProps = {
     icon?: string;
     style?: StyleProp<ViewStyle>;
     iconSize?: number;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -61,11 +61,11 @@ type IconSplashProps = {
  */
 export const IconSplash: React.FC<IconSplashProps> = (props) => {
     const { icon, iconSize = 70, style } = props;
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const styles = makeStyles(theme, iconSize);
     const containerStyles = makeContainerStyles();
     const iconColor = Color(
-        (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) || theme.colors.primary
+        (theme.dark ? Colors.gray[500] : theme.colors.primary) || theme.colors.primary
     ).isDark()
         ? Colors.white[50]
         : Colors.black[500];

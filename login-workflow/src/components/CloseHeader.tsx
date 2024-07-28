@@ -6,9 +6,10 @@
 import * as React from 'react';
 
 // Components
-import { Header, IconFamily } from '@brightlayer-ui/react-native-components';
+import { Header } from '@brightlayer-ui/react-native-components';
 import { useTheme } from 'react-native-paper';
 import * as Colors from '@brightlayer-ui/colors';
+import { IconFamily } from '@brightlayer-ui/react-native-components/core/__types__';
 
 const CloseIcon: IconFamily = { name: 'close' };
 
@@ -39,7 +40,7 @@ export const CloseHeader: React.FC<CloseHeaderProps> = (props) => {
                 props.backgroundColor ||
                 (theme.dark
                     ? Colors.black[800]
-                    : (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) || theme.colors.primary)
+                    : (theme.dark ? Colors.gray[500] : theme.colors.primary) || theme.colors.primary)
             }
         />
     );

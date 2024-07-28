@@ -45,8 +45,8 @@ export const TextInputSecureRender: React.ForwardRefRenderFunction<
     props: TextInputSecureRenderProps,
     ref: MutableRefObject<{} | null> | ((instance: {} | null) => void) | null // eslint-disable-line @typescript-eslint/ban-types
 ) => {
-    const { style, theme: customTheme, ...inputProps } = props;
-    const theme = useTheme(customTheme);
+    const { style, ...inputProps } = props;
+    const theme = useTheme();
     const styles = makeStyles();
 
     const [shouldShowText, setShouldShowText] = useState(true);
@@ -56,7 +56,7 @@ export const TextInputSecureRender: React.ForwardRefRenderFunction<
 
     React.useImperativeHandle(ref, () => ({
         focus: (): void => {
-            if (inputRef && inputRef.current) inputRef.current.focus();
+            if (inputRef.current) inputRef.current.focus();
         },
     }));
 
@@ -69,8 +69,8 @@ export const TextInputSecureRender: React.ForwardRefRenderFunction<
                 secureTextEntry={shouldShowText}
                 right={
                     <PaperTextInput.Icon
-                        name={shouldShowText ? 'eye-off' : 'eye'}
-                        color={theme.colors.placeholder}
+                        icon={shouldShowText ? 'eye-off' : 'eye'}
+                        color={theme.colors.surfaceVariant /* TODO test placeholder */}
                         onPress={(): void => setShouldShowText(!shouldShowText)}
                     />
                 }

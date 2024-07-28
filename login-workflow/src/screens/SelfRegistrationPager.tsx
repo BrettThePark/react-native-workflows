@@ -9,7 +9,7 @@ import React, { useEffect, useCallback, useState, ComponentType, useRef } from '
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Hooks
-import { useTheme } from 'react-native-paper';
+import { useTheme, Divider, MD2Theme } from 'react-native-paper';
 
 // Screens
 import { Eula as EulaScreen } from '../subScreens/Eula';
@@ -34,7 +34,7 @@ import { SimpleDialog } from '../components/SimpleDialog';
 import { ToggleButton } from '../components/ToggleButton';
 import i18n from '../translations/i18n';
 import { MobileStepper, Spacer } from '@brightlayer-ui/react-native-components';
-import { ThemedDivider as Divider } from '@brightlayer-ui/react-native-components/themed';
+// import { ThemedDivider as Divider } from '@brightlayer-ui/react-native-components/themed';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
@@ -48,18 +48,21 @@ import {
     useInjectedUIContext,
     useRegistrationUIActions,
     useRegistrationUIState,
-    CustomAccountDetails,
     CustomRegistrationForm,
-    AccountDetailsFormProps,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    AccountDetailsFormProps, 
+    CustomAccountDetails
+} from '../react-auth-shared';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 import { Instruction } from '../components/Instruction';
 import Color from 'color';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from './PreAuthContainer';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -107,7 +110,7 @@ const makeStyles = (): Record<string, any> =>
  * @param code Token from an email deep link for verifying a request to create an account with a specific email.
  * @param email Email associated with the code (optional) `?email=addr%40domain.com`.
  */
-type SelfRegistrationPagerParams = {
+export type SelfRegistrationPagerParams = {
     code?: string;
     email?: string;
 };
@@ -116,7 +119,7 @@ type SelfRegistrationPagerParams = {
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type SelfRegistrationPagerProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -127,11 +130,11 @@ type SelfRegistrationPagerProps = {
  */
 export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (props) => {
     const { t } = useLanguageLocale();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const registrationActions = useRegistrationUIActions();
     const registrationState = useRegistrationUIState();
     const injectedUIContext = useInjectedUIContext();
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const customRegistrationFormRef = useRef<TextInput>();
 
     // Styling
@@ -707,7 +710,7 @@ export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (prop
                         backAction={(): void => navigation.navigate('Login')}
                         backgroundColor={
                             isLastStep
-                                ? (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) ||
+                                ? (theme.dark ? Colors.gray[500] : theme.colors.primary) ||
                                   theme.colors.primary
                                 : undefined
                         }
@@ -742,7 +745,7 @@ export const SelfRegistrationPager: React.FC<SelfRegistrationPagerProps> = (prop
                         title={t('blui:REGISTRATION.STEPS.COMPLETE')}
                         backAction={(): void => navigation.navigate('Login')}
                         backgroundColor={
-                            (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) ||
+                            (theme.dark ? Colors.gray[500] : theme.colors.primary) ||
                             theme.colors.primary
                         }
                     />

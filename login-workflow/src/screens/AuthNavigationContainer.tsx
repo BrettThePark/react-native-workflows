@@ -20,7 +20,7 @@ import {
     useSecurityState,
     useSecurityActions,
     useInjectedUIContext,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 
 /**
  * Type for the properties of the navigation container.

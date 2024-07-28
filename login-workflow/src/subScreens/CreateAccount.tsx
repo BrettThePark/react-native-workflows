@@ -10,7 +10,7 @@ import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { TextInput } from '../components/TextInput';
 import { Instruction } from '../components/Instruction';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Shared Auth Logic
 import {
@@ -18,12 +18,12 @@ import {
     EMAIL_REGEX,
     // Hooks
     useLanguageLocale,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -77,7 +77,7 @@ type CreateAccountProps = {
     initialEmail: string;
     onEmailChanged(email: string): void;
     onSubmit?: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -86,7 +86,7 @@ type CreateAccountProps = {
  * @category Component
  */
 export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [emailInput, setEmailInput] = React.useState(props.initialEmail ?? '');
     const [hasEmailFormatError, setHasEmailFormatError] = React.useState(false);
     const { t } = useLanguageLocale();

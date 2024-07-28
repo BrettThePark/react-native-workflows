@@ -6,15 +6,15 @@
 import React from 'react';
 
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useLanguageLocale } from '../react-auth-shared';
 
 // Components
-import { EmptyState, IconFamily } from '@brightlayer-ui/react-native-components';
+import { EmptyState, Hero } from '@brightlayer-ui/react-native-components';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
+import { useTheme, Button, MD2Theme } from 'react-native-paper';
+// import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
 
-const ReportIcon: IconFamily = { name: 'report' };
+// const ReportIcon: IconFamily = { name: 'report' };
 
 /**
  * @ignore
@@ -55,7 +55,7 @@ type ErrorStateProps = {
     bodyText: string | null;
     icon?: React.Component<{ size: number; color: string }>;
     onPress: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -64,7 +64,7 @@ type ErrorStateProps = {
  * @category Component
  */
 export const ErrorState: React.FC<ErrorStateProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const { title, bodyText, icon, onPress } = props;
     const { t } = useLanguageLocale();
 
@@ -76,7 +76,7 @@ export const ErrorState: React.FC<ErrorStateProps> = (props) => {
             <View style={{ flex: 1 }}>
                 <EmptyState
                     // @ts-ignore we need a new version of the component library that exposes the type for WrapIconProps
-                    IconClass={icon ?? ReportIcon}
+                    IconClass={icon ?? <Hero label={''} icon={{ family: 'brightlayer-ui', name: 'report' }} />}
                     iconColor={theme.colors.error}
                     title={title ?? t('blui:MESSAGES.FAILURE')}
                     description={bodyText !== null ? t(bodyText) : t('blui:MESSAGES.REQUEST_ERROR')}

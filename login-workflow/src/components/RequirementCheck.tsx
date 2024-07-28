@@ -6,12 +6,12 @@
 import React from 'react';
 
 import { View, StyleSheet } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
-import { Subtitle2 } from '@brightlayer-ui/react-native-components';
+import { Subtitle2 } from './BrightlayerTypographyWrappers';
 
 /**
  * @ignore
@@ -36,7 +36,7 @@ const makeStyles = (): Record<string, any> =>
 type RequirementCheckProps = {
     isChecked: boolean;
     text: string;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -47,7 +47,7 @@ type RequirementCheckProps = {
  */
 export const RequirementCheck: React.FC<RequirementCheckProps> = (props) => {
     const { isChecked, text } = props;
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const styles = makeStyles();
 
     function colorIfValid(valid: boolean): string {
@@ -57,7 +57,8 @@ export const RequirementCheck: React.FC<RequirementCheckProps> = (props) => {
     return (
         <View style={styles.itemContainer}>
             <MatIcon name={'check'} size={24} color={colorIfValid(isChecked)} />
-            <Subtitle2 font={'regular'} style={styles.text}>
+            {/* TODO: <Subtitle2 variant={'regular'} style={styles.text}>  */}
+            <Subtitle2 style={styles.text}> 
                 {text}
             </Subtitle2>
         </View>

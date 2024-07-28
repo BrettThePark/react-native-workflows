@@ -16,7 +16,7 @@ import 'react-native-gesture-handler';
 const Stack = createStackNavigator();
 
 // Types
-import { ContactParams } from '@brightlayer-ui/react-auth-shared';
+import { ContactParams } from '../../react-auth-shared';
 
 describe('ContactSupport screen tested with enzyme', () => {
     afterEach(cleanup);

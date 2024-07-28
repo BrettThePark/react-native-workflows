@@ -10,15 +10,15 @@ import { View, StyleSheet, SafeAreaView, TextInput as ReactTextInput } from 'rea
 import { TextInput } from '../components/TextInput';
 import { Instruction } from '../components/Instruction';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Hooks
-import { useInjectedUIContext, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext, useLanguageLocale } from '../react-auth-shared';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -83,7 +83,7 @@ export const emptyAccountDetailInformation = {
 export type AccountDetailsProps = React.PropsWithChildren<{
     onDetailsChanged(details: AccountDetailInformation | null): void;
     onSubmit?: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 }>;
 
 /**
@@ -93,13 +93,13 @@ export type AccountDetailsProps = React.PropsWithChildren<{
  * @category Component
  */
 export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [firstNameInput, setFirstNameInput] = React.useState('');
     const [lastNameInput, setLastNameInput] = React.useState('');
     const { t } = useLanguageLocale();
 
-    const firstNameLengthLimit = useInjectedUIContext()?.registrationConfig?.firstName?.maxLength || null;
-    const lastNameLengthLimit = useInjectedUIContext()?.registrationConfig?.lastName?.maxLength || null;
+    const firstNameLengthLimit = useInjectedUIContext()?.registrationConfig?.firstName?.maxLength || undefined;
+    const lastNameLengthLimit = useInjectedUIContext()?.registrationConfig?.lastName?.maxLength || undefined;
 
     React.useEffect(() => {
         if (firstNameInput.length > 0 && lastNameInput.length > 0) {

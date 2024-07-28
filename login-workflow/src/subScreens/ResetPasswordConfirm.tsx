@@ -7,7 +7,7 @@ import React from 'react';
 
 // Hooks
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Components
 import { View, StyleSheet, SafeAreaView, LogBox } from 'react-native';
@@ -16,19 +16,22 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Spinner } from '../components/Spinner';
 import { SimpleDialog } from '../components/SimpleDialog';
 import { ToggleButton } from '../components/ToggleButton';
+import * as Colors from '@brightlayer-ui/colors';
 
 // Shared Auth Logic
 import {
     // Hooks
     useLanguageLocale,
     useAccountUIState,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 import { CloseHeader } from '../components/CloseHeader';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from 'src/screens/PreAuthContainer';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             // height: '100%',
@@ -79,7 +82,7 @@ LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']
  * @param theme (Optional) react-native-paper theme partial for custom styling.
  */
 type ResetPasswordConfirmProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -89,13 +92,13 @@ type ResetPasswordConfirmProps = {
  * @category Component
  */
 export const ResetPasswordConfirm: React.FC<ResetPasswordConfirmProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [password, setPassword] = React.useState('');
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
     const { t } = useLanguageLocale();
     const authUIState = useAccountUIState();
     const route = useRoute();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const routeParams = route.params as ResetPasswordConfirmParams;
 
     const containerStyles = makeContainerStyles(theme);
@@ -131,7 +134,7 @@ export const ResetPasswordConfirm: React.FC<ResetPasswordConfirmProps> = (props)
             <CloseHeader
                 title={t('blui:FORMS.RESET_PASSWORD')}
                 backAction={(): void => navigation.navigate('Login')}
-                // backgroundColor={(theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) || theme.colors.primary}
+                backgroundColor={(theme.dark ? Colors.gray[500] : theme.colors.primary) || theme.colors.primary}
             />
             <SafeAreaView style={containerStyles.safeContainer}>
                 <KeyboardAwareScrollView>

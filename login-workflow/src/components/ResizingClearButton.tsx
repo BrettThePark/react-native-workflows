@@ -7,8 +7,8 @@ import React from 'react';
 
 // Components
 import { View, StyleSheet, TouchableHighlight, StyleProp, ViewStyle } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import { Body1 } from '@brightlayer-ui/react-native-components';
+import { MD2Theme, useTheme } from 'react-native-paper';
+import { Body1 } from './BrightlayerTypographyWrappers';
 
 // Styles
 import color from 'color';
@@ -16,7 +16,7 @@ import color from 'color';
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme, fontSize: number): Record<string, any> =>
+const makeStyles = (theme: MD2Theme, fontSize: number): Record<string, any> =>
     StyleSheet.create({
         container: {
             paddingVertical: 8,
@@ -49,7 +49,7 @@ export type ResizingClearButtonProps = {
     style?: StyleProp<ViewStyle>;
     fontSize?: number;
     numberOfLines?: number;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -61,7 +61,7 @@ export type ResizingClearButtonProps = {
  */
 export const ResizingClearButton: React.FC<ResizingClearButtonProps> = (props) => {
     const { title, onPress, style, fontSize = 16, numberOfLines = 1 } = props;
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [currentFont, setCurrentFont] = React.useState(fontSize); // This is for Android
 
     const styles = makeStyles(theme, fontSize);
@@ -80,7 +80,8 @@ export const ResizingClearButton: React.FC<ResizingClearButtonProps> = (props) =
                     allowFontScaling={true} // iOS only
                     adjustsFontSizeToFit // iOS only
                     numberOfLines={1}
-                    color="primary"
+                    theme={{ colors: { onSurface: theme.colors.primary }} }
+                    // color="primary"
                     style={[styles.textButton, { fontSize: currentFont }]}
                     // @ts-ignore  ** This is to ignore TypeScript not finding the perfectly valid onTextLayout property of Text for React Native version 0.62 https://reactnative.dev/docs/text#ontextlayout
                     onTextLayout={(event: any): void => {

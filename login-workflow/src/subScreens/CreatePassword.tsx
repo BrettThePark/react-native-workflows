@@ -10,7 +10,7 @@ import { View, StyleSheet, SafeAreaView, TextInput } from 'react-native';
 import { PasswordRequirements } from '../components/PasswordRequirements';
 import { TextInputSecure } from '../components/TextInputSecure';
 import { Instruction } from '../components/Instruction';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Hooks
 import { ScrollView } from 'react-native-gesture-handler';
@@ -23,17 +23,17 @@ import {
     NUMBERS_REGEX,
     UPPER_CASE_REGEX,
     LOWER_CASE_REGEX,
-    // Types
-    PasswordRequirement,
     // Hooks
     useLanguageLocale,
     useInjectedUIContext,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    PasswordRequirement
+} from '../react-auth-shared';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             backgroundColor: theme.colors.surface,
@@ -60,7 +60,7 @@ const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any>
 type CreatePasswordProps = {
     onPasswordChanged(password: string): void;
     onSubmit?: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -69,7 +69,7 @@ type CreatePasswordProps = {
  * @category Component
  */
 export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const [passwordInput, setPasswordInput] = React.useState('');
     const [confirmInput, setConfirmInput] = React.useState('');
     const { t } = useLanguageLocale();

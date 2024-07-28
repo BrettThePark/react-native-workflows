@@ -7,9 +7,9 @@ import React from 'react';
 
 // Components
 import { View, StyleProp, ViewStyle } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import { Body1 } from '@brightlayer-ui/react-native-components';
-import { ThemedCheckbox as PaperCheckbox } from '@brightlayer-ui/react-native-components/themed';
+import { useTheme, Checkbox as PaperCheckbox, MD2Theme } from 'react-native-paper';
+import { Body1 } from './BrightlayerTypographyWrappers';
+// import { ThemedCheckbox as PaperCheckbox } from '@brightlayer-ui/react-native-components/themed';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /**
@@ -26,7 +26,7 @@ type CheckboxProps = {
     checked: boolean;
     onPress: () => void;
     disabled?: boolean;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -35,7 +35,7 @@ type CheckboxProps = {
  * @category Component
  */
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const { disabled, onPress, checked, label, style } = props;
 
     const checkedBox = (): void => {

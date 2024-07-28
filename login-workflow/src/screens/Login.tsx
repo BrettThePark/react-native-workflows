@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 
 // Components
 import { Platform, View, StyleSheet, SafeAreaView, StatusBar, TextInput as ReactTextInput } from 'react-native';
-import { IconButton, useTheme } from 'react-native-paper';
-import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
+import { IconButton, useTheme, Button } from 'react-native-paper';
+// import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
 
 import { TextInput } from '../components/TextInput';
 import { TextInputSecure } from '../components/TextInputSecure';
@@ -23,7 +23,7 @@ import { ToggleButton } from '../components/ToggleButton';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
-import { Body1, Body2, H6 } from '@brightlayer-ui/react-native-components';
+import { Body1, Body2, H6 } from '../components/BrightlayerTypographyWrappers';
 
 // Hooks
 import { useNavigation } from '@react-navigation/native';
@@ -41,9 +41,12 @@ import {
     useSecurityState,
     AccountActions,
     LoginErrorDisplayConfig,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
+
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Theme } from 'react-native-paper/lib/typescript/types';
+import { MD2Theme } from 'react-native-paper/lib/typescript/types';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from './PreAuthContainer';
 
 /**
  * @ignore
@@ -90,7 +93,7 @@ const makeContainerStyles = (insets: EdgeInsets): Record<string, any> =>
 /**
  * @ignore
  */
-const makeStyles = (theme: Theme, config: LoginErrorDisplayConfig): Record<string, any> =>
+const makeStyles = (theme: MD2Theme, config: LoginErrorDisplayConfig): Record<string, any> =>
     StyleSheet.create({
         signUpText: {
             alignSelf: 'center',
@@ -132,7 +135,7 @@ const makeStyles = (theme: Theme, config: LoginErrorDisplayConfig): Record<strin
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type LoginProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -149,7 +152,7 @@ export const Login: React.FC<LoginProps> = (props) => {
     const { loginErrorDisplayConfig = { mode: 'dialog' }, ...otherUIContext } = useInjectedUIContext();
     const {
         showSelfRegistration = true,
-        allowDebugMode = false,
+        allowDebugMode = true, // TODO: disable
         projectImage,
         showCybersecurityBadge = true,
         showContactSupport = true,
@@ -161,13 +164,13 @@ export const Login: React.FC<LoginProps> = (props) => {
         loginHeader,
         showLoginForm = true,
     } = otherUIContext;
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const { t } = useLanguageLocale();
     const authUIActions = useAccountUIActions();
     const authUIState = useAccountUIState();
 
     // Styles
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const insets = useSafeAreaInsets();
     const containerStyles = makeContainerStyles(insets);
     const styles = makeStyles(theme, loginErrorDisplayConfig);
@@ -183,7 +186,7 @@ export const Login: React.FC<LoginProps> = (props) => {
     const [hasUsernameFormatError, setHasUsernameFormatError] = React.useState(false);
     const [passwordInput, setPasswordInput] = React.useState('');
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
-    const [debugMode, setDebugMode] = React.useState(false);
+    const [debugMode, setDebugMode] = React.useState(true); // TODO: disable
     const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(false);
 
     const loginTapped = (): void => {
@@ -227,7 +230,8 @@ export const Login: React.FC<LoginProps> = (props) => {
                         onPress={(): void => {
                             setShowErrorMessageBox(false);
                         }}
-                        color={loginErrorDisplayConfig.fontColor || Colors.white['50']}
+                        // TODO
+                        // color={loginErrorDisplayConfig.fontColor || Colors.white['50']}
                     />
                 )}
             </View>
@@ -260,7 +264,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                     uppercase={false}
                     onPress={(): void => navigation.navigate('Registration')}
                 >
-                    <Body1 color="primary">{t('blui:ACTIONS.CREATE_ACCOUNT')}</Body1>
+                    <Body1 theme={{ colors: { onSurface: theme.colors.primary }}}>{t('blui:ACTIONS.CREATE_ACCOUNT')}</Body1>
                 </Button>
             </View>
         );
@@ -361,12 +365,12 @@ export const Login: React.FC<LoginProps> = (props) => {
     statusBar =
         Platform.OS === 'ios' ? (
             <StatusBar
-                backgroundColor={theme.colors?.primaryPalette?.main || theme.colors.primary}
+                backgroundColor={Colors.blue[500] || theme.colors.primary}
                 barStyle={theme.dark ? 'light-content' : 'dark-content'}
             />
         ) : (
             <StatusBar
-                backgroundColor={theme.colors?.primaryPalette?.dark || theme.colors.primary}
+                backgroundColor={Colors.blue[700] || theme.colors.primary}
                 barStyle={theme.dark ? 'light-content' : 'dark-content'}
             />
         );
@@ -517,7 +521,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                                         uppercase={false}
                                         onPress={(): void => navigation.navigate('PasswordResetInitiation')}
                                     >
-                                        <Body1 color="primary">{t('blui:LABELS.FORGOT_PASSWORD')}</Body1>
+                                        <Body1 theme={{ colors: { onSurface: theme.colors.primary }} }>{t('blui:LABELS.FORGOT_PASSWORD')}</Body1>
                                     </Button>
                                 )}
 

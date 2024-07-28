@@ -21,7 +21,7 @@ import { ExistingAccountComplete } from '../subScreens/ExistingAccountComplete';
 
 // Components
 import { View, StyleSheet, SafeAreaView, BackHandler, TextInput } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { useTheme, Divider, MD2Theme } from 'react-native-paper';
 import ViewPager from 'react-native-pager-view';
 import { CloseHeader } from '../components/CloseHeader';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -30,7 +30,7 @@ import { SimpleDialog } from '../components/SimpleDialog';
 import { ErrorState } from '../components/ErrorState';
 import { ToggleButton } from '../components/ToggleButton';
 import i18n from '../translations/i18n';
-import { ThemedDivider as Divider } from '@brightlayer-ui/react-native-components/themed';
+// import { ThemedDivider as Divider } from '@brightlayer-ui/react-native-components/themed';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
@@ -44,19 +44,22 @@ import {
     // Hooks
     useLanguageLocale,
     useInjectedUIContext,
-    AccountDetailsFormProps,
-    CustomAccountDetails,
     CustomRegistrationForm,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    AccountDetailsFormProps, 
+    CustomAccountDetails
+} from '../react-auth-shared';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 import { Instruction } from '../components/Instruction';
 import { MobileStepper, Spacer } from '@brightlayer-ui/react-native-components';
 import Color from 'color';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from './PreAuthContainer';
 
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             flexGrow: 1,
@@ -115,7 +118,7 @@ const makeStyles = (): Record<string, any> =>
  * @param code Token from an email deep link for verifying a request to create an account with a specific email.
  * @param email (Optional) Email associated with the code `?email=addr%40domain.com`.
  */
-type InviteRegistrationPagerParams = {
+export type InviteRegistrationPagerParams = {
     code: string;
     email?: string;
 };
@@ -124,7 +127,7 @@ type InviteRegistrationPagerParams = {
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type InviteRegistrationPagerProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -134,11 +137,11 @@ type InviteRegistrationPagerProps = {
  */
 export const InviteRegistrationPager: React.FC<InviteRegistrationPagerProps> = (props) => {
     const { t } = useLanguageLocale();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
     const injectedUIContext = useInjectedUIContext();
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const customRegistrationFormRef = useRef<TextInput>();
 
     // Styling
@@ -581,7 +584,7 @@ export const InviteRegistrationPager: React.FC<InviteRegistrationPagerProps> = (
                         backAction={(): void => navigation.navigate('Login')}
                         backgroundColor={
                             isLastStep
-                                ? (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) ||
+                                ? (theme.dark ? Colors.gray[500] : theme.colors.primary) ||
                                   theme.colors.primary
                                 : undefined
                         }
@@ -617,7 +620,7 @@ export const InviteRegistrationPager: React.FC<InviteRegistrationPagerProps> = (
                         title={t('blui:REGISTRATION.STEPS.COMPLETE')}
                         backAction={(): void => navigation.navigate('Login')}
                         backgroundColor={
-                            (theme.dark ? theme.colors.actionPalette.active : theme.colors.primary) ||
+                            (theme.dark ? Colors.gray[500] : theme.colors.primary) ||
                             theme.colors.primary
                         }
                     />

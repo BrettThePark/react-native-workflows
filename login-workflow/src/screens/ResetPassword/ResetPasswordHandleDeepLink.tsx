@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 
 // Nav
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Screens
@@ -27,15 +27,16 @@ import {
     useLanguageLocale,
     useAccountUIActions,
     useAccountUIState,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../../react-auth-shared';
 import { useTheme } from 'react-native-paper';
+import { StackParamList } from '../PreAuthContainer';
 
 /**
  * Stack navigator for reset password handle deep link navigation.
  */
 const Stack = createStackNavigator();
 
-type ResetPasswordHandleDeepLinkParams = {
+export type ResetPasswordHandleDeepLinkParams = {
     code: string;
     // `?email=addr%40domain.com`
     email?: string;
@@ -50,7 +51,7 @@ export const ResetPasswordHandleDeepLink: React.FC = () => {
     const { t } = useLanguageLocale();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const theme = useTheme();
 
     const route = useRoute();
@@ -103,9 +104,9 @@ export const ResetPasswordHandleDeepLink: React.FC = () => {
     return verifySuccess && !verifyIsInTransit ? (
         <Stack.Navigator
             initialRouteName="ResetPasswordConfirm"
-            headerMode={'none'}
             screenOptions={{
                 cardStyle: { backgroundColor: theme.colors.surface },
+                headerShown: false
             }}
         >
             {!setPasswordTransitSuccess ? (

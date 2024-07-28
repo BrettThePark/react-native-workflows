@@ -11,7 +11,7 @@ import { useTheme } from 'react-native-paper';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
-import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext } from '../react-auth-shared';
 
 /**
  * @ignore

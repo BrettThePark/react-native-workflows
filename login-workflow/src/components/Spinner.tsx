@@ -7,14 +7,13 @@ import React from 'react';
 
 // Components
 import { Platform, View, StyleSheet } from 'react-native';
-import { Portal, useTheme } from 'react-native-paper';
+import { MD2Theme, Portal, useTheme, ActivityIndicator } from 'react-native-paper';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { ThemedActivityIndicator as ActivityIndicator } from '@brightlayer-ui/react-native-components/themed';
-import { Body1 } from '@brightlayer-ui/react-native-components';
+import { Body1 } from './BrightlayerTypographyWrappers';
 /**
  * @ignore
  */
-const makeStyles = (theme: ReactNativePaper.Theme, hasHeader: boolean): Record<string, any> =>
+const makeStyles = (theme: MD2Theme, hasHeader: boolean): Record<string, any> =>
     StyleSheet.create({
         overlay: {
             backgroundColor: theme.dark ? 'rgba(0,0,0,0.6)' : 'rgba(255, 255, 255, 0.6)',
@@ -40,7 +39,7 @@ const makeStyles = (theme: ReactNativePaper.Theme, hasHeader: boolean): Record<s
  */
 type SpinnerProps = {
     hasHeader?: boolean;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
     loadingText?: string;
 };
 
@@ -51,7 +50,7 @@ type SpinnerProps = {
  */
 export const Spinner: React.FC<SpinnerProps> = (props) => {
     const { hasHeader = true, loadingText } = props;
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const styles = makeStyles(theme, hasHeader);
 
     return (

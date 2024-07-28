@@ -18,12 +18,11 @@ import {
     NUMBERS_REGEX,
     UPPER_CASE_REGEX,
     LOWER_CASE_REGEX,
-    // Types
     PasswordRequirement,
     // Hooks
     useInjectedUIContext,
     useLanguageLocale,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../react-auth-shared';
 
 /**
  * @param passwordText  The password to be used for checking.

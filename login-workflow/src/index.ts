@@ -21,7 +21,7 @@ export { LoginHeaderSplash } from './components/LoginHeaderSplash';
 export { DismissKeyboardView } from './components/DismissKeyboardView';
 export { default as i18n } from './translations/i18n';
 
-export * from '@brightlayer-ui/react-auth-shared';
+export * from './react-auth-shared';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -64,8 +64,8 @@ declare global {
             // opacity: Partial<ThemeOpacity>;
         }
         // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-        interface ThemeFonts {
-            bold: ThemeFont;
-        }
+        // interface ThemeFonts {
+        //     bold: ThemeFont;
+        // }
     }
 }

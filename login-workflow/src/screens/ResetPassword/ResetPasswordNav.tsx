@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { BackHandler } from 'react-native';
 // Nav
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 // Hooks
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -16,20 +16,21 @@ import { ResetPassword } from '../../subScreens/ResetPassword';
 import { ResetPasswordSent } from '../../subScreens/ResetPasswordSent';
 
 // Theme
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Shared Auth Logic
 import {
     // Actions
     AccountActions,
-    // Types
-    ContactParams,
     // Hooks
     useAccountUIState,
     useAccountUIActions,
     useLanguageLocale,
-} from '@brightlayer-ui/react-auth-shared';
+    // Types
+    ContactParams
+} from '../../react-auth-shared';
 import { CloseHeader } from '../../components/CloseHeader';
+import { StackParamList } from '../PreAuthContainer';
 
 /**
  * Stack navigator for reset password navigation.
@@ -40,7 +41,7 @@ const Stack = createStackNavigator();
  * @param theme  (Optional) react-native-paper theme partial to style the component.
  */
 type ResetPasswordNavProps = {
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -49,10 +50,10 @@ type ResetPasswordNavProps = {
  * @category Component
  */
 export const ResetPasswordNav: React.FC<ResetPasswordNavProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const route = useRoute();
     const { t } = useLanguageLocale();
 

@@ -7,9 +7,9 @@ import React from 'react';
 
 // Components
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { Body1 } from '@brightlayer-ui/react-native-components';
-import { useTheme } from 'react-native-paper';
-import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
+import { Body1 } from './BrightlayerTypographyWrappers';
+import { useTheme, Button, MD2Theme } from 'react-native-paper';
+// import { ThemedButton as Button } from '@brightlayer-ui/react-native-components/themed';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
@@ -17,7 +17,7 @@ import * as Colors from '@brightlayer-ui/colors';
 /**
  * @ignore
  */
-const makeStyles = (props: ToggleButtonProps, theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeStyles = (props: ToggleButtonProps, theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         loginButton: {
             width: '100%',
@@ -46,7 +46,7 @@ export type ToggleButtonProps = {
     outlined?: boolean;
     disabled?: boolean;
     onPress: () => void;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
     testID?: string;
     accessibilityLabel?: string;
 };
@@ -67,7 +67,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = (props) => {
         testID,
         accessibilityLabel,
     } = props;
-    const theme = useTheme(customTheme);
+    const theme = useTheme<MD2Theme>(customTheme);
     const styles = makeStyles(props, theme);
 
     return (
@@ -80,7 +80,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = (props) => {
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
-            <Body1 color="text" style={styles.label}>
+            <Body1 theme={{ colors: { onSurface: theme.colors.text }} } style={styles.label}>
                 {text}
             </Body1>
         </Button>

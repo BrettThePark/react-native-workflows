@@ -2,7 +2,7 @@
 import { Platform, NativeModules } from 'react-native';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { translations } from '@brightlayer-ui/react-auth-shared';
+import { translations } from '../react-auth-shared';
 
 // for getting the device's language locale
 // 'en' is default deviceLocale

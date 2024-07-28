@@ -8,7 +8,7 @@ import React from 'react';
 // Components
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { LoginHeaderSplash } from '../components/LoginHeaderSplash';
-import { useTheme } from 'react-native-paper';
+import { MD2Theme, useTheme } from 'react-native-paper';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
@@ -18,7 +18,7 @@ import CyberLogo from '../assets/images/cybersecurity_certified.png';
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: ReactNativePaper.Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -94,7 +94,7 @@ const makeStyles = (): Record<string, any> =>
 
 type SplashProps = {
     mainImage?: string | number;
-    theme?: ReactNativePaper.Theme;
+    theme?: MD2Theme;
 };
 
 /**
@@ -103,7 +103,7 @@ type SplashProps = {
  * @category Component
  */
 export const Splash: React.FC<SplashProps> = (props) => {
-    const theme = useTheme(props.theme);
+    const theme = useTheme<MD2Theme>(props.theme);
     const containerStyles = makeContainerStyles(theme);
     const styles = makeStyles();
 

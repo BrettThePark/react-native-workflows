@@ -1,5 +1,5 @@
 # !!! Important Note
-### This is an updated version of v5.2.0 of the React Native Auth Workflow intended to be used for Eaton EV Charger Manager app. The example project has therefore been removed.
+### This is an updated version of v5.2.0 of the React Native Auth Workflow intended to be used for Eaton EV Charger Manager app. The `example` project has therefore been removed. Additionally, the `react-auth-shared` has been integrated directly.
 
 # React Native Auth Workflow
 

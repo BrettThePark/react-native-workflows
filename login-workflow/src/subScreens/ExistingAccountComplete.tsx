@@ -6,7 +6,7 @@ import React from 'react';
 // Components
 import { CompleteSplashScreen } from './CompleteSplash';
 // Hooks
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useLanguageLocale } from '../react-auth-shared';
 /**
  * Renders the content of the notice of completed account creation screen.
  *
