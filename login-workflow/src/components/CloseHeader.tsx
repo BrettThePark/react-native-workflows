@@ -9,9 +9,7 @@ import * as React from 'react';
 import { Header } from '@brightlayer-ui/react-native-components';
 import { useTheme } from 'react-native-paper';
 import * as Colors from '@brightlayer-ui/colors';
-import { IconFamily } from '@brightlayer-ui/react-native-components/core/__types__';
-
-const CloseIcon: IconFamily = { name: 'close' };
+import { Icon } from '@brightlayer-ui/react-native-components';
 
 /**
  * @param title  The title to show in the header.
@@ -31,10 +29,13 @@ type CloseHeaderProps = {
  */
 export const CloseHeader: React.FC<CloseHeaderProps> = (props) => {
     const theme = useTheme();
+    const CloseIcon = (<Icon source={{ family: 'material', name: 'close' }} color={theme.colors.onPrimary} size={24} />);
+
     return (
         <Header
             title={props.title}
             icon={CloseIcon}
+            fontColor={theme.colors.onPrimary}
             onIconPress={props.backAction}
             backgroundColor={
                 props.backgroundColor ||
