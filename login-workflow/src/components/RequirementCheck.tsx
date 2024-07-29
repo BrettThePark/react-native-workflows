@@ -6,7 +6,7 @@
 import React from 'react';
 
 import { View, StyleSheet } from 'react-native';
-import { MD2Theme, useTheme } from 'react-native-paper';
+import { MD3Theme, useTheme, Text } from 'react-native-paper';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 
 // Styles
@@ -36,7 +36,7 @@ const makeStyles = (): Record<string, any> =>
 type RequirementCheckProps = {
     isChecked: boolean;
     text: string;
-    theme?: MD2Theme;
+    theme?: MD3Theme;
 };
 
 /**
@@ -47,7 +47,7 @@ type RequirementCheckProps = {
  */
 export const RequirementCheck: React.FC<RequirementCheckProps> = (props) => {
     const { isChecked, text } = props;
-    const theme = useTheme<MD2Theme>(props.theme);
+    const theme = useTheme<MD3Theme>(props.theme);
     const styles = makeStyles();
 
     function colorIfValid(valid: boolean): string {
@@ -57,8 +57,7 @@ export const RequirementCheck: React.FC<RequirementCheckProps> = (props) => {
     return (
         <View style={styles.itemContainer}>
             <MatIcon name={'check'} size={24} color={colorIfValid(isChecked)} />
-            {/* TODO: <Subtitle2 variant={'regular'} style={styles.text}>  */}
-            <Subtitle2 style={styles.text}> 
+            <Subtitle2 style={[styles.text, {fontWeight: 'normal'}]}>
                 {text}
             </Subtitle2>
         </View>
