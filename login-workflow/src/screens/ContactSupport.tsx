@@ -7,7 +7,7 @@ import React from 'react';
 
 // Components
 import { Linking, View, StyleSheet, SafeAreaView, BackHandler } from 'react-native';
-import { MD2Theme, Text, useTheme } from 'react-native-paper';
+import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { CloseHeader } from '../components/CloseHeader';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -30,7 +30,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
+const makeContainerStyles = (theme: MD3Theme): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             height: '100%',
@@ -59,14 +59,14 @@ const makeContainerStyles = (theme: MD2Theme): Record<string, any> =>
 /**
  * @ignore
  */
-const makeStyles = (theme: MD2Theme): Record<string, any> =>
+const makeStyles = (theme: MD3Theme): Record<string, any> =>
     StyleSheet.create({
         textSpacing: {
             marginVertical: 8,
         },
         headerText: {},
         bodyText: {
-            color: theme.colors.text,
+            color: theme.colors.onSurface,
         },
     });
 
@@ -74,7 +74,7 @@ const makeStyles = (theme: MD2Theme): Record<string, any> =>
  * @param theme (Optional) react-native-paper theme partial to style the component.
  */
 type ContactSupportProps = {
-    theme?: MD2Theme;
+    theme?: MD3Theme;
 };
 
 /**
@@ -84,7 +84,7 @@ type ContactSupportProps = {
  */
 export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
     const { t } = useLanguageLocale();
-    const theme = useTheme<MD2Theme>(props.theme);
+    const theme = useTheme<MD3Theme>(props.theme);
     const navigation = useNavigation<StackNavigationProp<StackParamList>>();
     const route = useRoute();
 
@@ -127,7 +127,7 @@ export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
                         <Body1 style={[styles.bodyText, styles.textSpacing]}>
                             {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
                             <Text
-                                style={{ color: theme.colors.accent }}
+                                style={{ color: theme.colors.primary }}
                                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                 onPress={(): Promise<void> => Linking.openURL(`mailto:${contactEmail}`)}
                             >
@@ -143,8 +143,7 @@ export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
                         <Body1 style={[styles.bodyText, styles.textSpacing]}>
                             {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
                             <Text
-                                style={{ color: theme.colors.accent }}
-                                theme={{ colors: { onSurface: theme.colors.accent }}}
+                                style={{ color: theme.colors.primary }}
                                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                 onPress={(): Promise<void> => Linking.openURL(`tel:${contactPhoneLink}`)}
                             >
