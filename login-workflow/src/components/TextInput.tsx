@@ -10,6 +10,7 @@ import { View, StyleSheet, StyleProp, ViewStyle, TextInput as ReactTextInput, Pl
 import { MD3Theme, useTheme, TextInput as PaperTextInput } from 'react-native-paper';
 import { Props as TextInputProps } from 'react-native-paper/lib/typescript/components/TextInput/TextInput';
 import { Subtitle2 } from '../components/BrightlayerTypographyWrappers';
+import { ThemedTextInput } from './themed/ThemedTextInput';
 
 // Styles
 import * as Colors from '@brightlayer-ui/colors';
@@ -29,6 +30,7 @@ const makeStyles = (theme: MD3Theme): Record<string, any> =>
             bottom: -20,
             paddingLeft: 13,
             color: theme.colors.error,
+            fontWeight: 'normal'
         },
     });
 
@@ -46,7 +48,7 @@ const ErrorText: React.FC<ErrorTextProps> = (props) => {
     const theme = useTheme();
     const styles = makeStyles(theme);
 
-    return <Subtitle2 style={[styles.errorText, style]} /* TODO font regular */>{errorText || null}</Subtitle2>;
+    return <Subtitle2 style={[styles.errorText, style]}>{errorText || null}</Subtitle2>;
 };
 
 /**
@@ -89,7 +91,7 @@ const TextInputRender: React.ForwardRefRenderFunction<{}, TextInputRenderProps> 
     return (
         <View>
             {/* @ts-ignore `theme` is optional prop but the type thinks it's required */}
-            <PaperTextInput /* TODO ThemedTextInput test */
+            <ThemedTextInput /* TODO ThemedTextInput test */
                 // @ts-ignore issue with refs on RNP input
                 ref={inputRef}
                 style={[styles.textInput, style]}
