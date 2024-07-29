@@ -7,7 +7,7 @@ import React from 'react';
 
 // Hooks
 import { useRoute } from '@react-navigation/native';
-import { MD2Theme, useTheme } from 'react-native-paper';
+import { MD3Theme, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Components
@@ -31,7 +31,7 @@ import {
 /**
  * @ignore
  */
-const makeContainerStyles = (theme: MD2Theme, insets: any): Record<string, any> =>
+const makeContainerStyles = (theme: MD3Theme, insets: any): Record<string, any> =>
     StyleSheet.create({
         safeContainer: {
             flexGrow: 1,
@@ -87,7 +87,7 @@ type ResetPasswordParams = {
  * @param theme (Optional) react-native-paper theme partial for custom styling.
  */
 type ResetPasswordProps = {
-    theme?: MD2Theme;
+    theme?: MD3Theme;
 };
 
 /**
@@ -96,7 +96,7 @@ type ResetPasswordProps = {
  * @category Component
  */
 export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
-    const theme = useTheme<MD2Theme>(props.theme);
+    const theme = useTheme<MD3Theme>(props.theme);
     const [emailInput, setEmailInput] = React.useState('');
     const [hasEmailFormatError, setHasEmailFormatError] = React.useState(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
