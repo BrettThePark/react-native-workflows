@@ -152,7 +152,7 @@ export const Login: React.FC<LoginProps> = (props) => {
     const { loginErrorDisplayConfig = { mode: 'dialog' }, ...otherUIContext } = useInjectedUIContext();
     const {
         showSelfRegistration = true,
-        allowDebugMode = true, // TODO: disable
+        allowDebugMode = false,
         projectImage,
         showCybersecurityBadge = true,
         showContactSupport = true,
@@ -186,7 +186,7 @@ export const Login: React.FC<LoginProps> = (props) => {
     const [hasUsernameFormatError, setHasUsernameFormatError] = React.useState(false);
     const [passwordInput, setPasswordInput] = React.useState('');
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
-    const [debugMode, setDebugMode] = React.useState(true); // TODO: disable
+    const [debugMode, setDebugMode] = React.useState(false);
     const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(false);
 
     const loginTapped = (): void => {

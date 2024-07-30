@@ -29,13 +29,13 @@ type CloseHeaderProps = {
  */
 export const CloseHeader: React.FC<CloseHeaderProps> = (props) => {
     const theme = useTheme();
-    const CloseIcon = (<Icon source={{ family: 'material', name: 'close' }} color={theme.colors.onPrimary} size={24} />);
+    const CloseIcon = (<Icon source={{ family: 'material', name: 'close' }} color={theme.dark ? theme.colors.onSurface : theme.colors.surface} size={24} />);
 
     return (
         <Header
             title={props.title}
             icon={CloseIcon}
-            fontColor={theme.colors.onPrimary}
+            fontColor={theme.dark ? theme.colors.onSurface : theme.colors.surface}
             onIconPress={props.backAction}
             backgroundColor={
                 props.backgroundColor ||
